@@ -1,9 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://cn3ynkvti5rft"]
+[gd_scene load_steps=16 format=3 uid="uid://cn3ynkvti5rft"]
 
 [ext_resource type="Script" path="res://Scenes/Player.gd" id="1_joyge"]
 [ext_resource type="Texture2D" uid="uid://bg5yeaftj6evf" path="res://Assets/PlayerArmlessIdle.png" id="2_kex7c"]
 [ext_resource type="Texture2D" uid="uid://cg7rwy5hrhx5h" path="res://Assets/PlayerRunning.png" id="3_xmpbj"]
 [ext_resource type="PackedScene" uid="uid://khgk46j80xs3" path="res://Scenes/Shotgun.tscn" id="4_d3t2g"]
+[ext_resource type="AudioStream" uid="uid://dnqvxfob4wivb" path="res://sound/realistic-shotgun-cocking-sound-38640.mp3" id="5_a8yrd"]
+[ext_resource type="AudioStream" uid="uid://bspyglxmm4wf" path="res://sound/shotgun-146188.mp3" id="6_h72pg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1agaj"]
 size = Vector2(7, 14)
@@ -85,3 +87,9 @@ frame_progress = 0.76433
 
 [node name="Shotgun" parent="." instance=ExtResource("4_d3t2g")]
 position = Vector2(0, 4)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_a8yrd")
+
+[node name="shootingSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_h72pg")

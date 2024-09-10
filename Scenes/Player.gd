@@ -6,8 +6,13 @@ var dash_time = 0.2
 var dash_cooldown = 1.5
 var can_dash = true
 
+
+
 var dash_timer = 0.0
 var cooldown_timer = 0.0
+
+
+
 
 func _physics_process(delta):
 	handle_movement(delta)
@@ -34,6 +39,8 @@ func handle_movement(delta):
 	
 func _process(delta):
 	var mouse_pos = get_global_mouse_position()
+	
+
 
 	if mouse_pos.x < global_position.x:
 		$AnimatedSprite2D.flip_h = false  
