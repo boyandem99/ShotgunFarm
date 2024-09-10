@@ -3,15 +3,16 @@ extends Area2D
 class_name Bullet
 
 @export var speed = 300
-var direction = Vector2.ZERO  
+@export var damage = 5
+var direction = Vector2.RIGHT
 
 func _ready():
-	var mouse_position = get_global_mouse_position()
-	direction = (mouse_position - global_position).normalized()
-	rotation = direction.angle()
+	direction = Vector2.RIGHT.rotated(rotation)
 
 func _process(delta):
-	position += direction * speed * delta  
+	position += direction * speed * delta
 
-func set_direction(dir: Vector2):
-	direction = dir
+func _on_body_entered(body):
+	if body.has_method("take_damage"):
+		body.take_damage(damage)  
+	queue_free() 

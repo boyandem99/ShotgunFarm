@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=3 uid="uid://dncx0n3tfvvsj"]
+
+[ext_resource type="Shader" uid="uid://xd67wtmgeom6" path="res://Scenes/HitFlash.tres" id="1_arljx"]
+[ext_resource type="Script" path="res://Scenes/Enemy.gd" id="1_miqa4"]
+[ext_resource type="Texture2D" uid="uid://5rmk72ci52mm" path="res://Assets/mosquito.png" id="2_txggn"]
+[ext_resource type="PackedScene" uid="uid://kjw5f4d5b3ey" path="res://Scenes/HealthBar.tscn" id="3_y4lhw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s6051"]
+radius = 7.0
+height = 16.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0cgqf"]
+resource_local_to_scene = true
+shader = ExtResource("1_arljx")
+shader_parameter/enabled = false
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_nchqo"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_2fy11"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nk0vw"]
+_data = {
+"RESET": SubResource("Animation_2fy11"),
+"hit_flash": SubResource("Animation_nchqo")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fl5pb"]
+radius = 7.0
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_miqa4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_s6051")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0cgqf")
+texture = ExtResource("2_txggn")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="HealthBar" parent="." instance=ExtResource("3_y4lhw")]
+offset_left = -9.0
+offset_top = -12.0
+offset_right = 9.0
+offset_bottom = -10.0
+
+[node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nk0vw")
+}
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_fl5pb")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

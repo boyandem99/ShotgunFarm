@@ -50,10 +50,11 @@ animations = [{
 radius = 3.0
 height = 10.0
 
-[node name="Bullet" type="Area2D"]
+[node name="Bullet" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_xf38o")
+speed = 250
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wjog3")
@@ -63,5 +64,3 @@ frame_progress = 0.358367
 position = Vector2(0, 0.5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_y5ukt")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

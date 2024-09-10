@@ -7,6 +7,9 @@
 [node name="Shotgun" type="Node2D"]
 script = ExtResource("1_v4a3n")
 bullet_scene = ExtResource("2_pwxsm")
+bullet_count = 3
+arc = 78.649
+fire_rate = 3.883
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_xnrmi")
