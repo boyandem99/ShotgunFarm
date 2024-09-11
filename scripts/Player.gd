@@ -94,4 +94,6 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 		closed_inv()
 
 func collect(item):
-	inv.instert(item)
+	inv.import(item)
+func player():
+	pass

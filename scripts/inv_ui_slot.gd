@@ -10,5 +10,6 @@ func update(slots: invSlot):
 	else:
 		item_displey.visible = true
 		item_displey.texture = slots.item.texture
-		amount_text.visable = true
+		if slots.amount > 1:
+			amount_text.visible = true
 		amount_text.text = str(slots.amount)

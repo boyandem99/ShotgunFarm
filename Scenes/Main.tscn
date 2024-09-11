@@ -68,3 +68,6 @@ zoom = Vector2(3, 3)
 
 [node name="wheat" parent="." instance=ExtResource("3_6g3mb")]
 position = Vector2(620, 335)
+
+[node name="wheat2" parent="." instance=ExtResource("3_6g3mb")]
+position = Vector2(621, 363)

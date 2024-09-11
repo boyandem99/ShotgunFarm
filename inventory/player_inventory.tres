@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Inv" load_steps=16 format=3 uid="uid://b30y171taumpw"]
+[gd_resource type="Resource" script_class="Inv" load_steps=17 format=3 uid="uid://b30y171taumpw"]
 
 [ext_resource type="Script" path="res://inventory/inven_slots.gd" id="2_7wpyo"]
 [ext_resource type="Script" path="res://scripts/inventory_manege.gd" id="3_bwtge"]
+[ext_resource type="Resource" uid="uid://f4m8xe7mc0x2" path="res://inventory/invenItems/shotgun.tres" id="3_pi5lq"]
 
 [sub_resource type="Resource" id="Resource_yd62d"]
 script = ExtResource("2_7wpyo")
@@ -53,7 +54,8 @@ amount = 0
 
 [sub_resource type="Resource" id="Resource_lbx3x"]
 script = ExtResource("2_7wpyo")
-amount = 0
+item = ExtResource("3_pi5lq")
+amount = 1
 
 [resource]
 script = ExtResource("3_bwtge")

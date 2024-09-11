@@ -7,7 +7,7 @@ var isOpen: bool = false
 @onready var slots: Array = $NinePatchRect/GridContainer.get_children()
 
 func _ready() -> void:
-	inv.update.connect(updat_slots())
+	inv.update.connect(updat_slots)
 	updat_slots()
 	slots.append($NinePatchRect/Inv_Ui_Slot)
 	close()
