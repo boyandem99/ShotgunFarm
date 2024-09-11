@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://khgk46j80xs3"]
 
-[ext_resource type="Script" path="res://Scenes/Shotgun.gd" id="1_v4a3n"]
+[ext_resource type="Script" path="res://scripts/Shotgun.gd" id="1_v4a3n"]
 [ext_resource type="PackedScene" uid="uid://d1mu31l2w3el7" path="res://Scenes/Bullet.tscn" id="2_pwxsm"]
 [ext_resource type="Texture2D" uid="uid://cq4pln87c3a4p" path="res://Assets/Shotgun.png" id="2_xnrmi"]
 

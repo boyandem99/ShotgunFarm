@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="Inv" load_steps=16 format=3 uid="uid://b30y171taumpw"]
+
+[ext_resource type="Script" path="res://inventory/inven_slots.gd" id="2_7wpyo"]
+[ext_resource type="Script" path="res://scripts/inventory_manege.gd" id="3_bwtge"]
+
+[sub_resource type="Resource" id="Resource_yd62d"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_e1meg"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_8msn4"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_emwh1"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_34v2p"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_hejdc"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_eom2j"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_g83ki"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_fttes"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_0803f"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_c2qs5"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_7c0kw"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[sub_resource type="Resource" id="Resource_lbx3x"]
+script = ExtResource("2_7wpyo")
+amount = 0
+
+[resource]
+script = ExtResource("3_bwtge")
+slots = Array[ExtResource("2_7wpyo")]([SubResource("Resource_yd62d"), SubResource("Resource_e1meg"), SubResource("Resource_8msn4"), SubResource("Resource_emwh1"), SubResource("Resource_34v2p"), SubResource("Resource_hejdc"), SubResource("Resource_eom2j"), SubResource("Resource_g83ki"), SubResource("Resource_fttes"), SubResource("Resource_0803f"), SubResource("Resource_c2qs5"), SubResource("Resource_7c0kw"), SubResource("Resource_lbx3x")])

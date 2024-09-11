@@ -1,14 +1,57 @@
-[gd_scene load_steps=16 format=3 uid="uid://cn3ynkvti5rft"]
+[gd_scene load_steps=29 format=3 uid="uid://cn3ynkvti5rft"]
 
-[ext_resource type="Script" path="res://Scenes/Player.gd" id="1_joyge"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_joyge"]
 [ext_resource type="Texture2D" uid="uid://bg5yeaftj6evf" path="res://Assets/PlayerArmlessIdle.png" id="2_kex7c"]
+[ext_resource type="Resource" uid="uid://b30y171taumpw" path="res://inventory/player_inventory.tres" id="2_o7s46"]
+[ext_resource type="Texture2D" uid="uid://bjakj8c68w7rb" path="res://Assets/Playerwithbackpack-Sheet.png" id="3_n1v2n"]
 [ext_resource type="Texture2D" uid="uid://cg7rwy5hrhx5h" path="res://Assets/PlayerRunning.png" id="3_xmpbj"]
 [ext_resource type="PackedScene" uid="uid://khgk46j80xs3" path="res://Scenes/Shotgun.tscn" id="4_d3t2g"]
 [ext_resource type="AudioStream" uid="uid://dnqvxfob4wivb" path="res://sound/realistic-shotgun-cocking-sound-38640.mp3" id="5_a8yrd"]
 [ext_resource type="AudioStream" uid="uid://bspyglxmm4wf" path="res://sound/shotgun-146188.mp3" id="6_h72pg"]
+[ext_resource type="PackedScene" uid="uid://0fnj4eaxpd5d" path="res://Scenes/inv_ui.tscn" id="8_b23n3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1agaj"]
 size = Vector2(7, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqx0p"]
+atlas = ExtResource("3_n1v2n")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ne0r"]
+atlas = ExtResource("3_n1v2n")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8bxgq"]
+atlas = ExtResource("3_n1v2n")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0452a"]
+atlas = ExtResource("3_n1v2n")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ed3i7"]
+atlas = ExtResource("3_n1v2n")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3pkw"]
+atlas = ExtResource("3_n1v2n")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xtc0"]
+atlas = ExtResource("3_n1v2n")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fgs1p"]
+atlas = ExtResource("3_n1v2n")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7p7l"]
+atlas = ExtResource("3_n1v2n")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j33k"]
+atlas = ExtResource("3_n1v2n")
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v50l8"]
 atlas = ExtResource("2_kex7c")
@@ -40,6 +83,51 @@ region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pfh2y"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqx0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ne0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8bxgq")
+}],
+"loop": false,
+"name": &"backpack_close",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0452a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ed3i7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3pkw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xtc0")
+}],
+"loop": true,
+"name": &"backpack_idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fgs1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7p7l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3j33k")
+}],
+"loop": false,
+"name": &"backpackopen",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v50l8")
@@ -74,6 +162,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_joyge")
+inv = ExtResource("2_o7s46")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -82,8 +171,7 @@ shape = SubResource("RectangleShape2D_1agaj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_pfh2y")
-animation = &"run"
-frame_progress = 0.76433
+animation = &"backpack_close"
 
 [node name="Shotgun" parent="." instance=ExtResource("4_d3t2g")]
 position = Vector2(0, 4)
@@ -93,3 +181,11 @@ stream = ExtResource("5_a8yrd")
 
 [node name="shootingSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_h72pg")
+
+[node name="Inv_ui" parent="." instance=ExtResource("8_b23n3")]
+offset_left = -44.0
+offset_top = -79.0
+offset_right = 44.0
+offset_bottom = -17.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

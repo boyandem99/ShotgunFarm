@@ -9,6 +9,7 @@ var shoot_cooldown = 0.5
 var time_since_last_shot = 0.0
 @onready var shooting_sfx: AudioStreamPlayer2D = $"../shootingSFX"
 
+
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $"../AudioStreamPlayer2D"
 
 func _ready():
@@ -19,7 +20,6 @@ func _process(delta):
 	time_since_last_shot += delta
 	if Input.is_action_pressed("shoot") and time_since_last_shot >= shoot_cooldown:
 		
-		shoot()
 		time_since_last_shot = 0.0
 		
 	if recoil_timer > 0:
