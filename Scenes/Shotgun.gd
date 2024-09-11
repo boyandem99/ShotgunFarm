@@ -11,6 +11,7 @@ var recoil_timer = 0.0
 var can_shoot = true
 var shoot_cooldown = 0.5  
 var time_since_last_shot = 0.0
+@onready var shooting_sfx: AudioStreamPlayer2D = $"shootingSFX"
 
 func _ready():	
 	original_position = position 
@@ -46,12 +47,12 @@ func shoot():
 				bullet.global_rotation = (
 				global_rotation + increment * i - arc_rad/2
 			)
-				get_tree().root.call_deferred("add_child", bullet)
-				recoil()
+			get_tree().root.call_deferred("add_child", bullet)
+			recoil()
 		await get_tree().create_timer(1/fire_rate).timeout
 		can_shoot = true
-
 func recoil():
+	#shooting_sfx.play()
 	var mouse_position = get_global_mouse_position()
 	var direction_to_cursor = (mouse_position - global_position).normalized()
 	position -= direction_to_cursor * recoil_strength

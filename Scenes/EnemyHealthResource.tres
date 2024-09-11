@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c7nkat5pg6gsn"]
+
+[ext_resource type="Script" path="res://Scenes/HealthResource.gd" id="1_1bebw"]
+
+[resource]
+script = ExtResource("1_1bebw")
+max_health = 10
+current_health = 10

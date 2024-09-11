@@ -1,5 +1,5 @@
 extends ProgressBar
-
+@export var health_resource: Resource
 @onready var timer = $Timer
 @onready var damage_bar = $DamageBar
 
@@ -9,10 +9,6 @@ func _set_health(new_health):
 	var prev_health = health
 	health = min(max_value, new_health)
 	value = health
-	
-	if health <= 0:
-		queue_free()
-	
 	if health < prev_health:
 		timer.start()
 	else:

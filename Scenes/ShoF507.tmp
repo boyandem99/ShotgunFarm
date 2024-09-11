@@ -8,6 +8,7 @@
 [node name="Shotgun" type="Node2D"]
 script = ExtResource("1_v4a3n")
 bullet_scene = ExtResource("2_pwxsm")
+bullet_count = 3
 arc = 78.649
 fire_rate = 3.883
 
@@ -19,4 +20,4 @@ flip_h = true
 [node name="shootingSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ddchi")
 volume_db = 2.015
-pitch_scale = 1.8
+pitch_scale = 0.35

@@ -3,7 +3,7 @@ extends Area2D
 class_name Bullet
 
 @export var speed = 300
-@export var damage = 5
+@export var damage = 0
 var direction = Vector2.RIGHT
 
 func _ready():

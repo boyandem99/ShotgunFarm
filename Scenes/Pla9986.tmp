@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cn3ynkvti5rft"]
+[gd_scene load_steps=29 format=3 uid="uid://cn3ynkvti5rft"]
 
 [ext_resource type="Script" path="res://Scenes/Player.gd" id="1_joyge"]
 [ext_resource type="Texture2D" uid="uid://c0me3ksescy81" path="res://Assets/PlayerDash.png" id="2_427k2"]
@@ -9,9 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://khgk46j80xs3" path="res://Scenes/Shotgun.tscn" id="4_d3t2g"]
 [ext_resource type="Texture2D" uid="uid://dxhlsbvggcrlw" path="res://Assets/pitchfork_spritesheet.png" id="8_fq8ll"]
 [ext_resource type="Script" path="res://Scenes/Hitbox.gd" id="9_fdeph"]
-[ext_resource type="Script" path="res://Scenes/HealthBar.gd" id="10_op1ej"]
-[ext_resource type="Texture2D" uid="uid://31dbtk6a2nm5" path="res://Assets/PlayerArmless.png" id="11_u23gg"]
-[ext_resource type="Shader" uid="uid://b21meck7jugbv" path="res://Scenes/PlayerHitFlash.tres" id="11_wa18n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1agaj"]
 size = Vector2(7, 14)
@@ -281,69 +278,6 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v11jq"]
 size = Vector2(33.5, 12)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_g50ya"]
-radius = 7.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1gbom"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gwp5n"]
-bg_color = Color(0.290196, 0.698039, 0.396078, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qua3f"]
-bg_color = Color(0.152941, 0.152941, 0.152941, 1)
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
-shadow_color = Color(0, 0, 0, 0.27451)
-shadow_offset = Vector2(0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1sve8"]
-bg_color = Color(0.941176, 0.941176, 0.941176, 1)
-
-[sub_resource type="Animation" id="Animation_30bcx"]
-resource_name = "hit_flash"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
-[sub_resource type="Animation" id="Animation_sdfr8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_swfrc"]
-_data = {
-"RESET": SubResource("Animation_sdfr8"),
-"hit_flash": SubResource("Animation_30bcx")
-}
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_byamm"]
-resource_local_to_scene = true
-shader = ExtResource("11_wa18n")
-shader_parameter/enabled = false
-shader_parameter/ColorParameter = Color(0.815686, 0, 0, 1)
-
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 16
 collision_mask = 16
@@ -359,6 +293,7 @@ sprite_frames = SubResource("SpriteFrames_pfh2y")
 animation = &"back_dash"
 
 [node name="Shotgun" parent="." instance=ExtResource("4_d3t2g")]
+visible = false
 position = Vector2(0, 4)
 
 [node name="WeaponFX" type="AnimationPlayer" parent="."]
@@ -373,10 +308,7 @@ hframes = 6
 
 [node name="Hitbox" type="Area2D" parent="Weapon"]
 position = Vector2(0, -4)
-collision_layer = 4
-collision_mask = 4
 script = ExtResource("9_fdeph")
-damage = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Hitbox"]
 position = Vector2(-11.25, 3)
@@ -384,52 +316,5 @@ scale = Vector2(1.2243, 0.607705)
 shape = SubResource("RectangleShape2D_v11jq")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="."]
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("CircleShape2D_g50ya")
-
-[node name="HealthBar" type="ProgressBar" parent="."]
-z_index = 1
-offset_left = -8.0
-offset_top = -12.0
-offset_right = 8.0
-offset_bottom = -10.0
-theme_override_styles/background = SubResource("StyleBoxEmpty_1gbom")
-theme_override_styles/fill = SubResource("StyleBoxFlat_gwp5n")
-value = 60.0
-show_percentage = false
-script = ExtResource("10_op1ej")
-
-[node name="DamageBar" type="ProgressBar" parent="HealthBar"]
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_qua3f")
-theme_override_styles/fill = SubResource("StyleBoxFlat_1sve8")
-value = 80.0
-show_percentage = false
-
-[node name="Timer" type="Timer" parent="HealthBar"]
-wait_time = 0.4
-one_shot = true
-
-[node name="PlayerHitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_swfrc")
-}
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_byamm")
-position = Vector2(1, 0)
-texture = ExtResource("11_u23gg")
-
 [connection signal="animation_finished" from="WeaponFX" to="." method="_on_weapon_fx_animation_finished"]
 [connection signal="body_entered" from="Weapon/Hitbox" to="Weapon/Hitbox" method="_on_body_entered"]
-[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
