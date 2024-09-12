@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://5nu0u2tantmg"]
+
+[ext_resource type="Script" path="res://Scenes/Item.gd" id="1_cu4r3"]
+
+[resource]
+script = ExtResource("1_cu4r3")
+name = ""
+damage = 0.0
+animation = ""
+projectile = 0
+fire_rate = 0.5
+bullet_count = 1
+arc = 0.0

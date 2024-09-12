@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://banx46abhw15f"]
+[gd_scene load_steps=9 format=3 uid="uid://banx46abhw15f"]
 
 [ext_resource type="Script" path="res://Scenes/Main.gd" id="1_3pncr"]
 [ext_resource type="PackedScene" uid="uid://cn3ynkvti5rft" path="res://Scenes/Player.tscn" id="1_ft31m"]
 [ext_resource type="PackedScene" uid="uid://dncx0n3tfvvsj" path="res://Scenes/Enemy.tscn" id="2_n7jlh"]
+[ext_resource type="Script" path="res://Scenes/Manager.gd" id="4_icnhq"]
+[ext_resource type="PackedScene" uid="uid://noqnxsdosev0" path="res://Scenes/Slot.tscn" id="4_mcotf"]
+[ext_resource type="Script" path="res://Scenes/Inventory.gd" id="4_n0yj5"]
+[ext_resource type="Script" path="res://Scenes/Character.gd" id="6_bl8ec"]
 
 [sub_resource type="Curve2D" id="Curve2D_py6f1"]
 _data = {
@@ -13,10 +17,6 @@ point_count = 5
 [node name="Main" type="Node2D"]
 script = ExtResource("1_3pncr")
 enemy_scene = ExtResource("2_n7jlh")
-
-[node name="TileMap" type="TileMap" parent="."]
-visible = false
-format = 2
 
 [node name="Player" parent="." instance=ExtResource("1_ft31m")]
 position = Vector2(576, 331)
@@ -38,6 +38,105 @@ curve = SubResource("Curve2D_py6f1")
 
 [node name="EnemySpawnLocation" type="PathFollow2D" parent="EnemyPath"]
 position = Vector2(384, 216)
+
+[node name="UI" type="CanvasLayer" parent="."]
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+
+[node name="Manager" type="Panel" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.41
+anchor_top = 0.395
+anchor_right = 0.618
+anchor_bottom = 0.593
+offset_left = -384.32
+offset_top = -211.96
+offset_right = -402.936
+offset_bottom = -223.264
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.76552, 1.71186)
+script = ExtResource("4_icnhq")
+
+[node name="Inventory" type="GridContainer" parent="UI/Manager"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 132.0
+offset_bottom = 108.0
+columns = 5
+script = ExtResource("4_n0yj5")
+
+[node name="Slot" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot2" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot3" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot4" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot5" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot6" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot7" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot8" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot9" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot10" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot11" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot12" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot13" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot14" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot15" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot16" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot17" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot18" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot19" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Slot20" parent="UI/Manager/Inventory" instance=ExtResource("4_mcotf")]
+layout_mode = 2
+
+[node name="Character" type="GridContainer" parent="UI/Manager"]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 56.0
+offset_right = 224.0
+offset_bottom = 96.0
+script = ExtResource("6_bl8ec")
+
+[node name="Slot" parent="UI/Manager/Character" instance=ExtResource("4_mcotf")]
+layout_mode = 2
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

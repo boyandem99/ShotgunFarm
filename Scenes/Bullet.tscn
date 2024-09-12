@@ -54,6 +54,7 @@ height = 10.0
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_xf38o")
+damage = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wjog3")

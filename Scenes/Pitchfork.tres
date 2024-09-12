@@ -2,13 +2,16 @@
 
 [ext_resource type="Texture2D" uid="uid://clgfp64ncu8g" path="res://Assets/pitchfork_icon.png" id="1_cva7s"]
 [ext_resource type="Script" path="res://Scenes/Item.gd" id="2_2um5u"]
-[ext_resource type="Texture2D" uid="uid://dxhlsbvggcrlw" path="res://Assets/pitchfork_spritesheet.png" id="3_uqc24"]
+[ext_resource type="Texture2D" uid="uid://dh4g3nyj82lam" path="res://Assets/weapons_spritesheet.png" id="3_jh6ij"]
 
 [resource]
 script = ExtResource("2_2um5u")
 name = "Pitchfork"
-texture = ExtResource("3_uqc24")
-damage = 2.0
+texture = ExtResource("3_jh6ij")
 icon = ExtResource("1_cva7s")
+damage = 2.0
 animation = "pitchfork"
 projectile = 0
+fire_rate = 0.5
+bullet_count = 1
+arc = 0.0
