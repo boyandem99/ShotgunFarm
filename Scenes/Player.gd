@@ -147,7 +147,7 @@ func take_damage(amount: int):
 
 func _die():
 	health = 100
-	#get_tree().change_scene("res://Scenes/YouDiedScene.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Gameover.tscn")
 func heal(amount: int):
 	#current_health += amount
 	#if current_health > max_health:
