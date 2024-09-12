@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://0fnj4eaxpd5d"]
+[gd_scene load_steps=5 format=3 uid="uid://0fnj4eaxpd5d"]
 
 [ext_resource type="Script" path="res://inventory/inv_ui.gd" id="1_6uteh"]
 [ext_resource type="Texture2D" uid="uid://5vnpa0dlbcnj" path="res://inventory/inven_background.png" id="2_na2p4"]
 [ext_resource type="PackedScene" uid="uid://dpiwvdnup1u44" path="res://Scenes/inv_ui_slot.tscn" id="3_kjsdu"]
+[ext_resource type="PackedScene" uid="uid://b0xs4iwfirm7t" path="res://Scenes/item.tscn" id="4_ucgxy"]
 
 [node name="Inv_ui" type="Control"]
 custom_minimum_size = Vector2(88, 62)
@@ -40,38 +41,74 @@ columns = 4
 [node name="Inv_Ui_Slot" parent="NinePatchRect/GridContainer" instance=ExtResource("3_kjsdu")]
 layout_mode = 2
 
+[node name="item" parent="NinePatchRect/GridContainer/Inv_Ui_Slot" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)
+
 [node name="Inv_Ui_Slot2" parent="NinePatchRect/GridContainer" instance=ExtResource("3_kjsdu")]
 layout_mode = 2
+
+[node name="item" parent="NinePatchRect/GridContainer/Inv_Ui_Slot2" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)
 
 [node name="Inv_Ui_Slot3" parent="NinePatchRect/GridContainer" instance=ExtResource("3_kjsdu")]
 layout_mode = 2
 
+[node name="item" parent="NinePatchRect/GridContainer/Inv_Ui_Slot3" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)
+
 [node name="Inv_Ui_Slot4" parent="NinePatchRect/GridContainer" instance=ExtResource("3_kjsdu")]
 layout_mode = 2
+
+[node name="item" parent="NinePatchRect/GridContainer/Inv_Ui_Slot4" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)
 
 [node name="Inv_Ui_Slot5" parent="NinePatchRect/GridContainer" instance=ExtResource("3_kjsdu")]
 layout_mode = 2
 
+[node name="item" parent="NinePatchRect/GridContainer/Inv_Ui_Slot5" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)
+
 [node name="Inv_Ui_Slot6" parent="NinePatchRect/GridContainer" instance=ExtResource("3_kjsdu")]
 layout_mode = 2
+
+[node name="item" parent="NinePatchRect/GridContainer/Inv_Ui_Slot6" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)
 
 [node name="Inv_Ui_Slot7" parent="NinePatchRect/GridContainer" instance=ExtResource("3_kjsdu")]
 layout_mode = 2
 
+[node name="item" parent="NinePatchRect/GridContainer/Inv_Ui_Slot7" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)
+
 [node name="Inv_Ui_Slot8" parent="NinePatchRect/GridContainer" instance=ExtResource("3_kjsdu")]
 layout_mode = 2
+
+[node name="item" parent="NinePatchRect/GridContainer/Inv_Ui_Slot8" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)
 
 [node name="Inv_Ui_Slot9" parent="NinePatchRect/GridContainer" instance=ExtResource("3_kjsdu")]
 layout_mode = 2
 
+[node name="item" parent="NinePatchRect/GridContainer/Inv_Ui_Slot9" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)
+
 [node name="Inv_Ui_Slot10" parent="NinePatchRect/GridContainer" instance=ExtResource("3_kjsdu")]
 layout_mode = 2
+
+[node name="item" parent="NinePatchRect/GridContainer/Inv_Ui_Slot10" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)
 
 [node name="Inv_Ui_Slot11" parent="NinePatchRect/GridContainer" instance=ExtResource("3_kjsdu")]
 layout_mode = 2
 
+[node name="item" parent="NinePatchRect/GridContainer/Inv_Ui_Slot11" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)
+
 [node name="Inv_Ui_Slot12" parent="NinePatchRect/GridContainer" instance=ExtResource("3_kjsdu")]
 layout_mode = 2
+
+[node name="item" parent="NinePatchRect/GridContainer/Inv_Ui_Slot12" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)
 
 [node name="Inv_Ui_Slot" parent="NinePatchRect" instance=ExtResource("3_kjsdu")]
 layout_mode = 1
@@ -83,3 +120,6 @@ offset_top = -9.0
 offset_right = 21.0
 offset_bottom = 7.0
 grow_vertical = 2
+
+[node name="item" parent="NinePatchRect/Inv_Ui_Slot" instance=ExtResource("4_ucgxy")]
+position = Vector2(8, 8)

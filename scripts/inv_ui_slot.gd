@@ -1,6 +1,6 @@
 extends Panel
 
-@onready var item_displey: Sprite2D = $CenterContainer/Panel/item
+@onready var item_displey = get_node("item")
 @onready var amount_text: Label = $CenterContainer/Panel/Label
 
 func update(slots: invSlot):

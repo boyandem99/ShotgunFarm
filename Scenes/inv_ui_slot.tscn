@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpiwvdnup1u44"]
+[gd_scene load_steps=5 format=3 uid="uid://dpiwvdnup1u44"]
 
 [ext_resource type="Script" path="res://scripts/inv_ui_slot.gd" id="1_5y6g2"]
 [ext_resource type="Texture2D" uid="uid://bhw0gcg507nvd" path="res://inventory/inven_Slots.png" id="1_hhv5d"]
 [ext_resource type="FontFile" uid="uid://d2bb6oqmnm2hh" path="res://fonts/PixelOperator8.ttf" id="3_ewenw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lhrme"]
+size = Vector2(16, 16)
 
 [node name="Inv_Ui_Slot" type="Panel"]
 self_modulate = Color(1, 1, 1, 0)
@@ -24,8 +27,6 @@ offset_bottom = 16.0
 [node name="Panel" type="Panel" parent="CenterContainer"]
 layout_mode = 2
 
-[node name="item" type="Sprite2D" parent="CenterContainer/Panel"]
-
 [node name="Label" type="Label" parent="CenterContainer/Panel"]
 custom_minimum_size = Vector2(14, 8)
 layout_mode = 0
@@ -37,3 +38,8 @@ theme_override_fonts/font = ExtResource("3_ewenw")
 theme_override_font_sizes/font_size = 8
 text = "1"
 horizontal_alignment = 2
+
+[node name="Area2D" type="Area2D" parent="CenterContainer/Panel" groups=["dropable2"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CenterContainer/Panel/Area2D"]
+shape = SubResource("RectangleShape2D_lhrme")

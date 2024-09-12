@@ -15,6 +15,14 @@ run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://scripts/global.gd"
+
+[global_group]
+
+dropable2=""
+
 [input]
 
 shoot={
