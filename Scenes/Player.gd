@@ -24,7 +24,8 @@ var time_since_last_shot = 0.0
 @export var bullet_count: int = 1
 @export_range(0,360) var arc: float = 0
 @export_range(0,20) var fire_rate: float = 0
-@onready var shooting_sfx: AudioStreamPlayer2D = $"shootingSFX"
+@onready var shooting_sfx: AudioStreamPlayer2D = $shooting_sfx
+
 @onready var original_collision_layer = collision_layer
 @onready var original_collision_mask = collision_mask
 @onready var weapon = $WeaponFX
@@ -66,6 +67,7 @@ func _input(event):
 func shoot():
 	if current_item != null and bullet_scene and current_item.name == "Shotgun":
 		if can_shoot:
+			shooting_sfx.play()
 			can_shoot = false
 			var bullet_arc_rad = deg_to_rad(arc)
 			var bullet_count_half = (bullet_count - 1) / 2.0

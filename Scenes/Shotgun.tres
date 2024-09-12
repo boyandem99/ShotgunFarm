@@ -13,5 +13,5 @@ damage = 0.0
 animation = "shotgun"
 projectile = 0
 fire_rate = 4.0
-bullet_count = 1
+bullet_count = 3
 arc = 80.0
