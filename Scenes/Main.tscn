@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://banx46abhw15f"]
+[gd_scene load_steps=10 format=3 uid="uid://banx46abhw15f"]
 
 [ext_resource type="Script" path="res://Scenes/Main.gd" id="1_3pncr"]
 [ext_resource type="PackedScene" uid="uid://cn3ynkvti5rft" path="res://Scenes/Player.tscn" id="1_ft31m"]
 [ext_resource type="PackedScene" uid="uid://dncx0n3tfvvsj" path="res://Scenes/Enemy.tscn" id="2_n7jlh"]
+[ext_resource type="PackedScene" uid="uid://51nbyfika74c" path="res://Scenes/Boss.tscn" id="3_x1s6m"]
 [ext_resource type="Script" path="res://Scenes/Manager.gd" id="4_icnhq"]
 [ext_resource type="PackedScene" uid="uid://noqnxsdosev0" path="res://Scenes/Slot.tscn" id="4_mcotf"]
 [ext_resource type="Script" path="res://Scenes/Inventory.gd" id="4_n0yj5"]
@@ -17,11 +18,13 @@ point_count = 5
 [node name="Main" type="Node2D"]
 script = ExtResource("1_3pncr")
 enemy_scene = ExtResource("2_n7jlh")
+boss_scene = ExtResource("3_x1s6m")
 
 [node name="Player" parent="." instance=ExtResource("1_ft31m")]
 position = Vector2(576, 331)
 collision_layer = 1
 collision_mask = 4
+bullet_scene = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(575, 325)

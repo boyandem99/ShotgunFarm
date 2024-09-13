@@ -30,7 +30,7 @@ offset_right = 597.0
 offset_bottom = 449.0
 text = "QUIT"
 
-[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="Restart" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

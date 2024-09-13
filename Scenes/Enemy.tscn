@@ -14,10 +14,8 @@ shader_parameter/enabled = false
 shader_parameter/ColorParameter = Color(1, 1, 1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fl5pb"]
-radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ftth"]
-radius = 7.0
 
 [sub_resource type="Animation" id="Animation_2fy11"]
 length = 0.001
@@ -57,12 +55,12 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tnqdw"]
-radius = 7.0
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_miqa4")
+damage = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_0cgqf")
@@ -77,8 +75,9 @@ script = ExtResource("4_l1sn4")
 shape = SubResource("CircleShape2D_fl5pb")
 
 [node name="Hitbox" type="Area2D" parent="Sprite2D"]
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("5_xjmj1")
-damage = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Hitbox"]
 shape = SubResource("CircleShape2D_7ftth")
@@ -99,5 +98,12 @@ libraries = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_tnqdw")
 
+[node name="DamageTimer" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="area_entered" from="Sprite2D/Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="Sprite2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_exited" from="Sprite2D/Hurtbox" to="." method="_on_hurtbox_body_exited"]
+[connection signal="body_exited" from="Sprite2D/Hitbox" to="Sprite2D/Hitbox" method="_on_body_exited"]
+[connection signal="hit_detected" from="Sprite2D/Hitbox" to="." method="_on_hitbox_hit_detected"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]

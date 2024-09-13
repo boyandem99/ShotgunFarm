@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Enemy
 
 @export var speed = 100 
-@export var damage = 10
+@export var damage = 0
 @onready var healthbar = $HealthBar
 @onready var hit_flash_anim_player = $HitFlashAnimationPlayer
 @export var health_resource : Resource = preload("res://Scenes/EnemyHealthResource.tres")

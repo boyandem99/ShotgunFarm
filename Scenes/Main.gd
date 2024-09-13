@@ -1,6 +1,9 @@
 extends Node2D
 
 @export var enemy_scene: PackedScene
+@export var boss_scene: PackedScene
+var enemy_limit : int = 1; 
+var enemy_number : int = 1; 
 
 func _process(delta):
 	pass
@@ -14,6 +17,8 @@ func game_over():
 	$SpawnTimer.stop()
 func _on_start_timer_timeout():
 	$SpawnTimer.start()
+	var boss = boss_scene.instantiate()
+	add_child(boss)
 
 func _on_spawn_timer_timeout():
 	var enemy = enemy_scene.instantiate()

@@ -50,7 +50,7 @@ func _ready():
 	Global.set_player_reference(self)
 	health = health_resource.max_health
 	healthbar.init_health(health)
-	hitbox = $Weapon/Hitbox
+	hitbox = $Hitbox
 	_update()
 	$Weapon.visible = false
 func _update():
@@ -115,6 +115,8 @@ func _process(delta):
 
 	var mouse_pos = get_global_mouse_position()
 	$Weapon.look_at(mouse_pos)
+	hitbox.look_at(mouse_pos)
+
 	if mouse_pos.x < global_position.x:
 		$AnimatedSprite2D.flip_h = false
 		if is_hitbox_ready():
