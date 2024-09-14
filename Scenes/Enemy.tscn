@@ -60,7 +60,7 @@ _data = {
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_miqa4")
-damage = 1
+damage = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_0cgqf")

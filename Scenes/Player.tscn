@@ -1,9 +1,8 @@
-[gd_scene load_steps=39 format=3 uid="uid://cn3ynkvti5rft"]
+[gd_scene load_steps=38 format=3 uid="uid://cn3ynkvti5rft"]
 
 [ext_resource type="Script" path="res://Scenes/Player.gd" id="1_joyge"]
 [ext_resource type="Texture2D" uid="uid://c0me3ksescy81" path="res://Assets/PlayerDash.png" id="2_427k2"]
 [ext_resource type="Texture2D" uid="uid://bg5yeaftj6evf" path="res://Assets/PlayerArmlessIdle.png" id="2_kex7c"]
-[ext_resource type="PackedScene" uid="uid://d1mu31l2w3el7" path="res://Scenes/Bullet.tscn" id="2_xenl3"]
 [ext_resource type="Texture2D" uid="uid://b2n80ugsgxws4" path="res://Assets/PlayerBackDash.png" id="2_yi6ta"]
 [ext_resource type="Texture2D" uid="uid://cg7rwy5hrhx5h" path="res://Assets/PlayerRunning.png" id="3_xmpbj"]
 [ext_resource type="PackedScene" uid="uid://bw2tb3w8fsawl" path="res://Scenes/Weapon.tscn" id="7_mf4n5"]
@@ -595,10 +594,8 @@ bg_color = Color(0.941176, 0.941176, 0.941176, 1)
 size = Vector2(33.5, 12)
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 16
-collision_mask = 16
+collision_mask = 4
 script = ExtResource("1_joyge")
-bullet_scene = ExtResource("2_xenl3")
 bullet_count = 5
 arc = 48.589
 fire_rate = 3.673
@@ -669,8 +666,8 @@ script = ExtResource("13_a2bv3")
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(-1, 2)
-collision_layer = 4
-collision_mask = 4
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("10_t0p13")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
@@ -681,4 +678,5 @@ disabled = true
 
 [connection signal="animation_finished" from="WeaponFX" to="." method="_on_weapon_fx_animation_finished"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_exited" from="Hurtbox" to="." method="_on_hurtbox_body_exited"]
 [connection signal="body_entered" from="Hitbox" to="Hitbox" method="_on_body_entered"]

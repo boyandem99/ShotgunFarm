@@ -18,13 +18,12 @@ var recoil_time = 0.1
 var original_position = Vector2.ZERO
 var recoil_timer = 0.0
 var can_shoot = true
-var shoot_cooldown = 0.5  
+var shoot_cooldown = 0.5
 var time_since_last_shot = 0.0
-@export var bullet_scene: PackedScene
+@onready var bullet_scene : PackedScene= preload("res://Scenes/Bullet.tscn") 
 @export var bullet_count: int = 1
 @export_range(0,360) var arc: float = 0
 @export_range(0,20) var fire_rate: float = 0
-@onready var shooting_sfx: AudioStreamPlayer2D = $"shootingSFX"
 @onready var original_collision_layer = collision_layer
 @onready var original_collision_mask = collision_mask
 @onready var weapon = $WeaponFX
@@ -53,6 +52,7 @@ func _ready():
 	hitbox = $Hitbox
 	_update()
 	$Weapon.visible = false
+
 func _update():
 	if current_item != null:
 		set_damage(current_item.damage)
@@ -63,6 +63,7 @@ func is_hitbox_ready() -> bool:
 func _input(event):
 	if event.is_action_pressed("shoot"):
 		play_animation()
+
 func shoot():
 	if current_item != null and bullet_scene and current_item.name == "Shotgun":
 		if can_shoot:
@@ -84,12 +85,13 @@ func shoot():
 			can_shoot = true
 	else:
 		print("Bullet scene not assigned")
+
 func combo(animation):
 	if animation in ["fist"]:
 		return "_" + str(counter)
 	else:
 		return ""
-		
+
 func play_animation():
 	if current_item == null:
 		weapon.play("fist" + combo("fist"))
@@ -123,16 +125,15 @@ func _process(delta):
 			hitbox.scale.x = -1
 		$Weapon.flip_h = true
 		$Weapon.flip_v = true
-		
 	else:
 		$AnimatedSprite2D.flip_h = true
 		$Weapon.flip_h = true
 		$Weapon.flip_v = false
-		
 
 func _physics_process(delta):
 	handle_movement(delta)
 	handle_dash(delta)
+	handle_continuous_damage(delta)  # Added function to handle continuous damage
 
 func handle_movement(delta):
 	if not is_dashing:
@@ -202,17 +203,34 @@ func take_damage(amount: int):
 		_die()
 
 func _die():
-	call_deferred("_deferred_game_over")
-
-func _deferred_game_over():
-	health = 100
 	get_tree().change_scene_to_file("res://Scenes/Gameover.tscn")
 
+#func _deferred_game_over():
+	#get_tree().change_scene_to_file("res://Scenes/Gameover.tscn")
+	#
 func heal(amount: int):
 	pass
 
 signal hit
 
+var colliding_enemies = []  # Track colliding enemies
+var damage_per_second = 1  # Damage to apply per second
+var damage_interval = 1.0  # Interval in seconds for applying damage
+var time_since_last_damage = 0.0
+
 func _on_hurtbox_body_entered(body):
 	if body is Enemy:
-		take_damage(body.damage)
+		if not colliding_enemies.has(body):
+			colliding_enemies.append(body)
+
+func _on_hurtbox_body_exited(body):
+	if body is Enemy:
+		colliding_enemies.erase(body)
+
+func handle_continuous_damage(delta):
+	time_since_last_damage += delta
+	if colliding_enemies.size() > 0 and time_since_last_damage >= damage_interval:
+		for enemy in colliding_enemies:
+			if enemy:
+				take_damage(damage_per_second * damage_interval)
+		time_since_last_damage = 0.0

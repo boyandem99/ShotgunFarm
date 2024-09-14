@@ -96,3 +96,5 @@ libraries = {
 }
 
 [node name="ShootingTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="ShootingTimer" to="." method="_on_shooting_timer_timeout"]

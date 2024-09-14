@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://banx46abhw15f"]
+[gd_scene load_steps=11 format=3 uid="uid://banx46abhw15f"]
 
 [ext_resource type="Script" path="res://Scenes/Main.gd" id="1_3pncr"]
 [ext_resource type="PackedScene" uid="uid://cn3ynkvti5rft" path="res://Scenes/Player.tscn" id="1_ft31m"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://noqnxsdosev0" path="res://Scenes/Slot.tscn" id="4_mcotf"]
 [ext_resource type="Script" path="res://Scenes/Inventory.gd" id="4_n0yj5"]
 [ext_resource type="Script" path="res://Scenes/Character.gd" id="6_bl8ec"]
+[ext_resource type="AudioStream" uid="uid://b307mvne38xmk" path="res://sound/BattleSoundtrack.mp3" id="9_rng1y"]
 
 [sub_resource type="Curve2D" id="Curve2D_py6f1"]
 _data = {
@@ -22,9 +23,6 @@ boss_scene = ExtResource("3_x1s6m")
 
 [node name="Player" parent="." instance=ExtResource("1_ft31m")]
 position = Vector2(576, 331)
-collision_layer = 1
-collision_mask = 4
-bullet_scene = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(575, 325)
@@ -140,6 +138,10 @@ script = ExtResource("6_bl8ec")
 
 [node name="Slot" parent="UI/Manager/Character" instance=ExtResource("4_mcotf")]
 layout_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_rng1y")
+autoplay = true
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

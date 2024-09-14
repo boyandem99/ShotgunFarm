@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bpnny3i57pnx7"]
+
+[ext_resource type="Script" path="res://Scenes/CollectableBuff.gd" id="1_jci21"]
+[ext_resource type="Texture2D" uid="uid://vdj4gijt5mad" path="res://Assets/Peas.png" id="2_lydar"]
+
+[resource]
+script = ExtResource("1_jci21")
+buff_type = "bullet"
+buff_value = 1.0
+duration = 20.0
+heal_amount = 0
+texture = ExtResource("2_lydar")
