@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://banx46abhw15f"]
+[gd_scene load_steps=26 format=3 uid="uid://banx46abhw15f"]
 
 [ext_resource type="Script" path="res://Scenes/Main.gd" id="1_3pncr"]
 [ext_resource type="PackedScene" uid="uid://cn3ynkvti5rft" path="res://Scenes/Player.tscn" id="1_ft31m"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c7hghgy5fa1eh" path="res://Scenes/carrot_seed_pack.tscn" id="14_pubk4"]
 [ext_resource type="PackedScene" uid="uid://cibwnbj63082i" path="res://Scenes/potato.tscn" id="15_p2u16"]
 [ext_resource type="PackedScene" uid="uid://e2t7fav8pmhn" path="res://Scenes/growing_zone.tscn" id="16_f32uw"]
+[ext_resource type="FontFile" uid="uid://cu4fr4183nrc3" path="res://Scenes/PixelOperator8-Bold.ttf" id="17_bgoxi"]
 
 [sub_resource type="Curve2D" id="Curve2D_py6f1"]
 _data = {
@@ -233,7 +234,7 @@ enemy_scene = ExtResource("2_n7jlh")
 
 [node name="Player" parent="." instance=ExtResource("1_ft31m")]
 z_index = 2
-position = Vector2(576, 331)
+position = Vector2(1, -29)
 collision_mask = 4
 bullet_count = 5
 arc = 41.351
@@ -395,6 +396,63 @@ position = Vector2(1, -141)
 
 [node name="potato" parent="." instance=ExtResource("15_p2u16")]
 position = Vector2(22, -140)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -88.0
+offset_top = -41.0
+offset_right = 86.0
+offset_bottom = -18.0
+theme_override_fonts/font = ExtResource("17_bgoxi")
+theme_override_font_sizes/font_size = 8
+text = "Welocme To Shotgun Farm
+"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -121.0
+offset_top = -186.0
+offset_right = 120.0
+offset_bottom = -163.0
+theme_override_fonts/font = ExtResource("17_bgoxi")
+theme_override_font_sizes/font_size = 8
+text = "Click On Seed Packet and Hover over Dirt to Grow Crops
+"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 259.0
+offset_top = 27.0
+offset_right = 474.0
+offset_bottom = 57.0
+theme_override_fonts/font = ExtResource("17_bgoxi")
+theme_override_font_sizes/font_size = 8
+text = "Click E to Access Inventory
+To Equip Weapon Hold and Drag Into The Equipment Slot"
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 275.0
+offset_top = -48.0
+offset_right = 438.0
+offset_bottom = -25.0
+theme_override_fonts/font = ExtResource("17_bgoxi")
+theme_override_font_sizes/font_size = 8
+text = "Left Click to shoot. But Only At night
+"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label5" type="Label" parent="."]
+offset_left = 271.0
+offset_top = -123.0
+offset_right = 434.0
+offset_bottom = -100.0
+theme_override_fonts/font = ExtResource("17_bgoxi")
+theme_override_font_sizes/font_size = 8
+text = "Left-Shift to Dash"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
