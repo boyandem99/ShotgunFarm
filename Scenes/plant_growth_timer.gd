@@ -4,21 +4,11 @@ var plant = Global.plantSelected
 var is_plant_growing: bool = false
 var is_plant_done: bool = false
 
-
-
-
-
 @onready var plantSprite: AnimatedSprite2D = $Plant
 
 func _physics_process(delta: float) -> void:
 	if is_plant_growing == false:
 		plant = Global.plantSelected
-		
-
-
-
-
-
 
 func _on_wheat_timer_timeout() -> void:
 	var wheat_plant = $Plant
@@ -27,18 +17,21 @@ func _on_wheat_timer_timeout() -> void:
 		$wheatTimer.start()
 	elif wheat_plant.frame == 1:
 		wheat_plant.frame = 2
+		$wheatTimer.start()
+	elif wheat_plant.frame == 2:
+		wheat_plant.frame = 3
 		is_plant_done = true
 	
-	
-#even though it says wheat it works for other crops
-
 func _on_carrot_timer_timeout() -> void:
-	var wheat_plant = $Plant
-	if wheat_plant.frame == 0:
-		wheat_plant.frame = 1
+	var carrot_plant = $Plant
+	if carrot_plant.frame == 0:
+		carrot_plant.frame = 1
 		$carrotTimer.start()
-	elif wheat_plant.frame == 1:
-		wheat_plant.frame = 2
+	elif carrot_plant.frame == 1:
+		carrot_plant.frame = 2
+		$carrotTimer.start()
+	elif carrot_plant.frame == 2:
+		carrot_plant.frame = 3
 		is_plant_done = true
 
 
@@ -49,6 +42,12 @@ func _on_tomato_timer_timeout() -> void:
 		$tomatoTimer.start()
 	elif wheat_plant.frame == 1:
 		wheat_plant.frame = 2
+		$tomatoTimer.start()
+	elif wheat_plant.frame == 2:
+		wheat_plant.frame = 3
+		$tomatoTimer.start()
+	elif wheat_plant.frame == 3:
+		wheat_plant.frame = 4
 		is_plant_done = true
 
 
@@ -59,10 +58,13 @@ func _on_potato_timer_timeout() -> void:
 		$potatoTimer.start()
 	elif wheat_plant.frame == 1:
 		wheat_plant.frame = 2
+		$potatoTimer.start()
+	elif wheat_plant.frame == 2:
+		wheat_plant.frame = 3
+		$potatoTimer.start()
+	elif wheat_plant.frame == 3:
+		wheat_plant.frame = 4
 		is_plant_done = true
-
-
-
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:

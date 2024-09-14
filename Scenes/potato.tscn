@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cibwnbj63082i"]
+[gd_scene load_steps=6 format=3 uid="uid://bru1yxaiwywd8"]
 
 [ext_resource type="Texture2D" uid="uid://sua8oqc5pg2o" path="res://Assets/crops_spritesheet.png" id="1_brmn7"]
 [ext_resource type="Script" path="res://Scenes/potato.gd" id="1_x5hr7"]

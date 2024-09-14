@@ -6,3 +6,7 @@
 script = ExtResource("1_1bebw")
 max_health = 10
 current_health = 10
+heal_amount = 0
+buff_type = ""
+buff_value = 1.0
+duration = 5.0

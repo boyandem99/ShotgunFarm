@@ -1,5 +1,12 @@
 extends CharacterBody2D
 
+class_name Player
+
+
+var is_inventory_open: bool = false
+
+var backpack_opening: bool = true
+
 var speed = 150
 var dash_speed = 350
 var dash_time = 0.2
@@ -18,21 +25,16 @@ var recoil_time = 0.1
 var original_position = Vector2.ZERO
 var recoil_timer = 0.0
 var can_shoot = true
-var shoot_cooldown = 0.5  
+var shoot_cooldown = 0.5
 var time_since_last_shot = 0.0
-@export var bullet_scene: PackedScene
-@export var bullet_count: int = 1
-@export_range(0,360) var arc: float = 0
-@export_range(0,20) var fire_rate: float = 0
+@onready var bullet_scene : PackedScene = preload("res://Scenes/Bullet.tscn") 
 @onready var shooting_sfx: AudioStreamPlayer2D = $shooting_sfx
-
 @onready var original_collision_layer = collision_layer
 @onready var original_collision_mask = collision_mask
 @onready var weapon = $WeaponFX
 @onready var hitbox = null
 @export var health_resource: Resource = preload("res://Scenes/PlayerHealthResource.tres")
 @onready var healthbar = $HealthBar
-
 @export var current_item: Item:
 	set(value):
 		current_item = value
@@ -51,9 +53,10 @@ func _ready():
 	Global.set_player_reference(self)
 	health = health_resource.max_health
 	healthbar.init_health(health)
-	hitbox = $Weapon/Hitbox
+	hitbox = $Hitbox
 	_update()
 	$Weapon.visible = false
+
 func _update():
 	if current_item != null:
 		set_damage(current_item.damage)
@@ -64,34 +67,63 @@ func is_hitbox_ready() -> bool:
 func _input(event):
 	if event.is_action_pressed("shoot"):
 		play_animation()
+
 func shoot():
-	if current_item != null and bullet_scene and current_item.name == "Shotgun" and Global.isDay == false:
+	if current_item != null and bullet_scene and current_item.name == "Shotgun" :
 		if can_shoot:
 			shooting_sfx.play()
 			can_shoot = false
-			var bullet_arc_rad = deg_to_rad(arc)
-			var bullet_count_half = (bullet_count - 1) / 2.0
+			var bullet_arc_rad = deg_to_rad(current_item.arc)
+			var bullet_count_half = (current_item.bullet_count - 1) / 2.0
 			var mouse_pos = get_global_mouse_position()
 			var base_direction = (mouse_pos - global_position).normalized()
 			
-			for i in range(bullet_count):
+			for i in range(current_item.bullet_count ):
 				var bullet = bullet_scene.instantiate()
 				bullet.position = global_position
-				var angle_offset = (i - bullet_count_half) * (bullet_arc_rad / max(bullet_count - 1, 1))
+				var angle_offset = (i - bullet_count_half) * (bullet_arc_rad / max(current_item.bullet_count - 1, 1))
 				var spread_direction = base_direction.rotated(angle_offset)
 				bullet.direction = spread_direction
 				bullet.rotation = spread_direction.angle()
 				get_tree().root.call_deferred("add_child", bullet)
-			await get_tree().create_timer(1 / fire_rate).timeout
+			await get_tree().create_timer(1 / current_item.fire_rate).timeout
 			can_shoot = true
 	else:
-		print("no_weapon")
+		print(current_item,bullet_scene,Global.isDay )
+
+func inventory_anim():
+	if is_inventory_open:
+		closing_inventory()
+	if is_inventory_open == false:
+		opening_inventory()
+
+func opening_inventory():
+	is_inventory_open = true
+	$AnimatedSprite2D.play("backpack_open")
+	backpack_opening = true
+func closing_inventory():
+	$AnimatedSprite2D.play("backpack_end")
+
+func apply_buff(buff_resource: Resource) -> void:
+	if buff_resource.buff_type == "heal":
+		heal(buff_resource.heal_amount)
+	elif buff_resource.buff_type == "speed":
+		speed += buff_resource.buff_value
+	elif buff_resource.buff_type == "damage":
+		set_damage(hitbox.damage + buff_resource.buff_value)
+	elif buff_resource.buff_type == "bullet_count":
+		current_item.bullet_count += int(buff_resource.buff_value)
+	elif buff_resource.buff_type == "invincibility":
+		invincible = true
+		await get_tree().create_timer(buff_resource.duration).timeout
+		invincible = false
+
 func combo(animation):
 	if animation in ["fist"]:
 		return "_" + str(counter)
 	else:
 		return ""
-		
+
 func play_animation():
 	if current_item == null:
 		weapon.play("fist" + combo("fist"))
@@ -105,6 +137,8 @@ func _on_weapon_fx_animation_finished(anim_name):
 		is_attacking = false
 
 func _process(delta):
+	if Input.is_action_just_pressed("ui_inventory"):
+		inventory_anim()
 	time_since_last_shot += delta
 	if Input.is_action_pressed("shoot") and time_since_last_shot >= shoot_cooldown:
 		shoot()
@@ -117,22 +151,24 @@ func _process(delta):
 
 	var mouse_pos = get_global_mouse_position()
 	$Weapon.look_at(mouse_pos)
+	hitbox.look_at(mouse_pos)
+
 	if mouse_pos.x < global_position.x:
 		$AnimatedSprite2D.flip_h = false
 		if is_hitbox_ready():
 			hitbox.scale.x = -1
 		$Weapon.flip_h = true
 		$Weapon.flip_v = true
-		
 	else:
 		$AnimatedSprite2D.flip_h = true
 		$Weapon.flip_h = true
 		$Weapon.flip_v = false
-		
 
 func _physics_process(delta):
-	handle_movement(delta)
-	handle_dash(delta)
+	if is_inventory_open == false:
+		handle_movement(delta)
+		handle_dash(delta)
+		handle_continuous_damage(delta)  # Added function to handle continuous damage
 
 func handle_movement(delta):
 	if not is_dashing:
@@ -202,17 +238,42 @@ func take_damage(amount: int):
 		_die()
 
 func _die():
-	call_deferred("_deferred_game_over")
-
-func _deferred_game_over():
-	health = 100
 	get_tree().change_scene_to_file("res://Scenes/Gameover.tscn")
 
+#func _deferred_game_over():
+	#get_tree().change_scene_to_file("res://Scenes/Gameover.tscn")
+	#
 func heal(amount: int):
 	pass
 
 signal hit
 
+var colliding_enemies = []  # Track colliding enemies
+var damage_per_second = 1  # Damage to apply per second
+var damage_interval = 1.0  # Interval in seconds for applying damage
+var time_since_last_damage = 0.0
+
 func _on_hurtbox_body_entered(body):
 	if body is Enemy:
-		take_damage(body.damage)
+		if not colliding_enemies.has(body):
+			colliding_enemies.append(body)
+
+func _on_hurtbox_body_exited(body):
+	if body is Enemy:
+		colliding_enemies.erase(body)
+
+func handle_continuous_damage(delta):
+	time_since_last_damage += delta
+	if colliding_enemies.size() > 0 and time_since_last_damage >= damage_interval:
+		for enemy in colliding_enemies:
+			if enemy:
+				take_damage(damage_per_second * damage_interval)
+		time_since_last_damage = 0.0
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if backpack_opening:
+		$AnimatedSprite2D.play("backpack_idle")
+		backpack_opening = false
+	elif is_inventory_open and backpack_opening == false:
+		is_inventory_open = false

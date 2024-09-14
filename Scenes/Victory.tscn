@@ -1,0 +1,140 @@
+[gd_scene load_steps=10 format=3 uid="uid://qndskascdoew"]
+
+[ext_resource type="Texture2D" uid="uid://sqlrs7vwij4t" path="res://Assets/cool_realistic_pic.png" id="1_3c7yk"]
+[ext_resource type="Script" path="res://Scenes/Victory.gd" id="1_6kgi7"]
+[ext_resource type="AudioStream" uid="uid://clcqled6wxdfy" path="res://sound/Win.mp3" id="2_ygxk1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_14uax"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8nrqe"]
+texture = ExtResource("1_3c7yk")
+modulate_color = Color(0.796243, 0.796243, 0.796243, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m7v8v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4rigc"]
+bg_color = Color(0.892831, 0.829213, 0.366491, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.8, 0.498039, 0.262745, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 10
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ocvcx"]
+bg_color = Color(0.86007, 0.794633, 0.314976, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.8, 0.498039, 0.262745, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 10
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cw8xe"]
+bg_color = Color(0.94698, 0.902654, 0.575521, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.8, 0.498039, 0.262745, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 10
+shadow_offset = Vector2(0, 3)
+
+[node name="Victory" type="CanvasLayer"]
+script = ExtResource("1_6kgi7")
+
+[node name="Panel2" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_14uax")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -83.0
+offset_right = 495.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxTexture_8nrqe")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 151.0
+offset_top = 63.0
+offset_right = 372.0
+offset_bottom = -75.0
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "YOU WIN"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "(some how)"
+horizontal_alignment = 1
+
+[node name="Restart" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_pressed_color = Color(0.912271, 3.17663e-06, 6.73831e-07, 1)
+theme_override_colors/font_hover_color = Color(0.828792, 0.000146678, 7.99933e-05, 1)
+theme_override_colors/font_pressed_color = Color(0.989844, 5.48691e-06, 9.62615e-07, 1)
+theme_override_colors/font_color = Color(0.947454, 0.206374, 0.248187, 1)
+theme_override_constants/h_separation = 1
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m7v8v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4rigc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ocvcx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cw8xe")
+text = "Restart"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_pressed_color = Color(0.912271, 3.17663e-06, 6.73831e-07, 1)
+theme_override_colors/font_hover_color = Color(0.828792, 0.000146678, 7.99933e-05, 1)
+theme_override_colors/font_pressed_color = Color(0.989844, 5.48691e-06, 9.62615e-07, 1)
+theme_override_colors/font_color = Color(0.947454, 0.206374, 0.248187, 1)
+theme_override_constants/h_separation = 1
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m7v8v")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4rigc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ocvcx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cw8xe")
+text = "Quit game"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ygxk1")
+autoplay = true
+
+[connection signal="pressed" from="VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

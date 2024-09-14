@@ -7,10 +7,6 @@ var seed_type = 2
 func _ready() -> void:
 	animated_sprite_2d.play("idle")
 
-
-
-
-
 func _physics_process(delta: float) -> void:
 	if selected:
 		global_position = lerp(global_position, get_global_mouse_position(), 25 * delta)
