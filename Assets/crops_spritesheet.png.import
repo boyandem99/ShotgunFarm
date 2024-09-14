@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2v03fywqmtiy"
-path="res://.godot/imported/crops.png-bb4acbed32155876182eaf34fe1c6f61.ctex"
+uid="uid://sua8oqc5pg2o"
+path="res://.godot/imported/crops_spritesheet.png-892a38579435a3580c88c0423770794a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Tiny Wonder Farm Free/objects&items/crops.png"
-dest_files=["res://.godot/imported/crops.png-bb4acbed32155876182eaf34fe1c6f61.ctex"]
+source_file="res://Assets/crops_spritesheet.png"
+dest_files=["res://.godot/imported/crops_spritesheet.png-892a38579435a3580c88c0423770794a.ctex"]
 
 [params]
 

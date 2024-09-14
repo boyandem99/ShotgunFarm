@@ -65,7 +65,7 @@ func _input(event):
 	if event.is_action_pressed("shoot"):
 		play_animation()
 func shoot():
-	if current_item != null and bullet_scene and current_item.name == "Shotgun":
+	if current_item != null and bullet_scene and current_item.name == "Shotgun" and Global.isDay == false:
 		if can_shoot:
 			shooting_sfx.play()
 			can_shoot = false
@@ -85,7 +85,7 @@ func shoot():
 			await get_tree().create_timer(1 / fire_rate).timeout
 			can_shoot = true
 	else:
-		print("Bullet scene not assigned")
+		print("no_weapon")
 func combo(animation):
 	if animation in ["fist"]:
 		return "_" + str(counter)
@@ -175,8 +175,8 @@ func start_dash():
 	dash_timer = dash_time
 	can_dash = false
 	invincible = true
-	collision_layer = 0
-	collision_mask = 0
+	collision_layer = 5
+	collision_mask = 5
 	dash_direction = velocity.normalized() if velocity.length() > 0 else Vector2(1, 0)
 	var mouse_pos = get_global_mouse_position()
 	if (mouse_pos.x - global_position.x) * dash_direction.x > 0:

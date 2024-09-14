@@ -9,7 +9,8 @@ func _process(delta):
 func _ready():
 	new_game()
 func new_game():
-	$StartTimer.start()
+	if Global.isDay == false:
+		$StartTimer.start()
 func _on_player_hit():
 	pass 
 func game_over():

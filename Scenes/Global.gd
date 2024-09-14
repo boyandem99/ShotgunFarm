@@ -1,6 +1,11 @@
 extends Node
 
+var isDay: bool = true
+
 var inventory = []
+var plantSelected = null #0 carrot, 1 wheat, 2 tomato, 3 potato
+
+var numberOfcrops = [0, 0, 0, 0]
 
 signal inventory_updated
 
