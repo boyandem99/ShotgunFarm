@@ -1,12 +1,12 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c4ssmd3tq8yy1"]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cigovfm1wcrdn"]
 
-[ext_resource type="Script" path="res://Scenes/CollectableBuff.gd" id="1_q6lla"]
-[ext_resource type="Texture2D" uid="uid://doqorr6qaheno" path="res://Assets/Tomato.png" id="2_lx7qn"]
+[ext_resource type="Script" path="res://Scenes/HealthResource.gd" id="1_imp84"]
 
 [resource]
-script = ExtResource("1_q6lla")
+script = ExtResource("1_imp84")
+max_health = 0
+current_health = 0
+heal_amount = 0
 buff_type = "heal"
-buff_value = 0.0
+buff_value = 1.0
 duration = 0.0
-heal_amount = 2
-texture = ExtResource("2_lx7qn")

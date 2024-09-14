@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://qdxnx3xpnhfu"]
+
+[ext_resource type="Script" path="res://Scenes/HealthResource.gd" id="1_fnxa1"]
+
+[resource]
+script = ExtResource("1_fnxa1")
+max_health = 0
+current_health = 0
+heal_amount = 0
+buff_type = "damage"
+buff_value = 1.0
+duration = 10.0

@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7hghgy5fa1eh"]
+
+[ext_resource type="Script" path="res://Scenes/carrot_seed_pack.gd" id="1_ofia5"]
+[ext_resource type="Texture2D" uid="uid://sua8oqc5pg2o" path="res://Assets/crops_spritesheet.png" id="1_yud2o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vx2e"]
+atlas = ExtResource("1_yud2o")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vp4wl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vx2e")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8n81"]
+size = Vector2(14, 16)
+
+[node name="carrot_seed_pack" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_ofia5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vp4wl")
+animation = &"idle"
+
+[node name="Area2D" type="Area2D" parent="." groups=["seeds"]]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_h8n81")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

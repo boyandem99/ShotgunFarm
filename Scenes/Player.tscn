@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cn3ynkvti5rft"]
+[gd_scene load_steps=39 format=3 uid="uid://cn3ynkvti5rft"]
 
 [ext_resource type="Script" path="res://Scenes/Player.gd" id="1_joyge"]
 [ext_resource type="Texture2D" uid="uid://c0me3ksescy81" path="res://Assets/PlayerDash.png" id="2_427k2"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://ck1queqgidxbd" path="res://Scenes/PlayerHealthResource.tres" id="8_7xxwe"]
 [ext_resource type="Script" path="res://Scenes/HealthBar.gd" id="10_op1ej"]
 [ext_resource type="Script" path="res://Scenes/Hitbox.gd" id="10_t0p13"]
+[ext_resource type="AudioStream" uid="uid://bspyglxmm4wf" path="res://sound/shotgun-146188.mp3" id="11_qyp53"]
 [ext_resource type="Script" path="res://Scenes/DynamicCamera.gd" id="13_a2bv3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1agaj"]
@@ -594,11 +595,8 @@ bg_color = Color(0.941176, 0.941176, 0.941176, 1)
 size = Vector2(33.5, 12)
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 4
+collision_mask = 13
 script = ExtResource("1_joyge")
-bullet_count = 5
-arc = 48.589
-fire_rate = 3.673
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 1)
@@ -659,9 +657,9 @@ wait_time = 0.4
 one_shot = true
 
 [node name="DynamicCamera" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 position_smoothing_enabled = true
-position_smoothing_speed = 2.0
+position_smoothing_speed = 3.0
 script = ExtResource("13_a2bv3")
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -675,6 +673,9 @@ position = Vector2(-7, 6.5)
 scale = Vector2(1.2243, 0.607705)
 shape = SubResource("RectangleShape2D_xq58p")
 disabled = true
+
+[node name="shooting_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_qyp53")
 
 [connection signal="animation_finished" from="WeaponFX" to="." method="_on_weapon_fx_animation_finished"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

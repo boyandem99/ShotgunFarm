@@ -1,5 +1,5 @@
 extends GridContainer
-#
+
 #
 #@onready var slots = get_children()
 #

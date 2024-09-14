@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name Player
+
 var speed = 150
 var dash_speed = 350
 var dash_time = 0.2
@@ -20,17 +22,14 @@ var recoil_timer = 0.0
 var can_shoot = true
 var shoot_cooldown = 0.5
 var time_since_last_shot = 0.0
-@onready var bullet_scene : PackedScene= preload("res://Scenes/Bullet.tscn") 
-@export var bullet_count: int = 1
-@export_range(0,360) var arc: float = 0
-@export_range(0,20) var fire_rate: float = 0
+@onready var bullet_scene : PackedScene = preload("res://Scenes/Bullet.tscn") 
+@onready var shooting_sfx: AudioStreamPlayer2D = $shooting_sfx
 @onready var original_collision_layer = collision_layer
 @onready var original_collision_mask = collision_mask
 @onready var weapon = $WeaponFX
 @onready var hitbox = null
 @export var health_resource: Resource = preload("res://Scenes/PlayerHealthResource.tres")
 @onready var healthbar = $HealthBar
-
 @export var current_item: Item:
 	set(value):
 		current_item = value
@@ -65,26 +64,40 @@ func _input(event):
 		play_animation()
 
 func shoot():
-	if current_item != null and bullet_scene and current_item.name == "Shotgun":
+	if current_item != null and bullet_scene and current_item.name == "Shotgun" :
 		if can_shoot:
+			shooting_sfx.play()
 			can_shoot = false
-			var bullet_arc_rad = deg_to_rad(arc)
-			var bullet_count_half = (bullet_count - 1) / 2.0
+			var bullet_arc_rad = deg_to_rad(current_item.arc)
+			var bullet_count_half = (current_item.bullet_count - 1) / 2.0
 			var mouse_pos = get_global_mouse_position()
 			var base_direction = (mouse_pos - global_position).normalized()
 			
-			for i in range(bullet_count):
+			for i in range(current_item.bullet_count ):
 				var bullet = bullet_scene.instantiate()
 				bullet.position = global_position
-				var angle_offset = (i - bullet_count_half) * (bullet_arc_rad / max(bullet_count - 1, 1))
+				var angle_offset = (i - bullet_count_half) * (bullet_arc_rad / max(current_item.bullet_count - 1, 1))
 				var spread_direction = base_direction.rotated(angle_offset)
 				bullet.direction = spread_direction
 				bullet.rotation = spread_direction.angle()
 				get_tree().root.call_deferred("add_child", bullet)
-			await get_tree().create_timer(1 / fire_rate).timeout
+			await get_tree().create_timer(1 / current_item.fire_rate).timeout
 			can_shoot = true
 	else:
-		print("Bullet scene not assigned")
+		print(current_item,bullet_scene,Global.isDay )
+func apply_buff(buff_resource: Resource) -> void:
+	if buff_resource.buff_type == "heal":
+		heal(buff_resource.heal_amount)
+	elif buff_resource.buff_type == "speed":
+		speed += buff_resource.buff_value
+	elif buff_resource.buff_type == "damage":
+		set_damage(hitbox.damage + buff_resource.buff_value)
+	elif buff_resource.buff_type == "bullet_count":
+		current_item.bullet_count += int(buff_resource.buff_value)
+	elif buff_resource.buff_type == "invincibility":
+		invincible = true
+		await get_tree().create_timer(buff_resource.duration).timeout
+		invincible = false
 
 func combo(animation):
 	if animation in ["fist"]:
@@ -176,8 +189,8 @@ func start_dash():
 	dash_timer = dash_time
 	can_dash = false
 	invincible = true
-	collision_layer = 0
-	collision_mask = 0
+	collision_layer = 5
+	collision_mask = 5
 	dash_direction = velocity.normalized() if velocity.length() > 0 else Vector2(1, 0)
 	var mouse_pos = get_global_mouse_position()
 	if (mouse_pos.x - global_position.x) * dash_direction.x > 0:

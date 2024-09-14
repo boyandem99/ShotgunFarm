@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://beg0q2d1mguyn"]
+
+[ext_resource type="Script" path="res://Scenes/wheat_seed_pack.gd" id="1_w7v7i"]
+[ext_resource type="Texture2D" uid="uid://sua8oqc5pg2o" path="res://Assets/crops_spritesheet.png" id="2_s137u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w37cm"]
+atlas = ExtResource("2_s137u")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yqh10"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w37cm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yjljh"]
+size = Vector2(14, 16)
+
+[node name="wheat_seed_pack" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_w7v7i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_yqh10")
+animation = &"idle"
+
+[node name="Area2D" type="Area2D" parent="." groups=["seeds"]]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_yjljh")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

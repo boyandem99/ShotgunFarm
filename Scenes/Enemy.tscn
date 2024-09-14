@@ -58,7 +58,7 @@ _data = {
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 15
 script = ExtResource("1_miqa4")
 damage = 2
 
