@@ -336,7 +336,7 @@ shape = SubResource("RectangleShape2D_s8vaw")
 
 [node name="Plant" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ykcf8")
-animation = &"none"
+animation = &"new_animation"
 
 [node name="wheatTimer" type="Timer" parent="."]
 one_shot = true

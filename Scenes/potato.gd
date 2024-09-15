@@ -16,7 +16,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if Input.is_action_just_pressed("shoot") and selected:
-		Global.plantSelected = null
+		Global.plantSelected = -1
 		selected = false
 	elif Input.is_action_just_pressed("shoot"):
 		Global.plantSelected = seed_type

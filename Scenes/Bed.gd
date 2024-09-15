@@ -1,12 +1,7 @@
 extends StaticBody2D
 
-func _ready() -> void:
-	
-	set_process_input(true)
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
-func _input(event):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
-				handle_bed_interaction()
-
-func handle_bed_interaction() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Cutscene.tscn")
+func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if Input.is_action_just_pressed("right_click") and Global.isDay:
+		get_tree().change_scene_to_file("res://Scenes/Cutscene.tscn")

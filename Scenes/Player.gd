@@ -43,15 +43,16 @@ func set_damage(amount):
 	if is_hitbox_ready():
 		hitbox.damage = amount
 
+	
 func _ready():
-	original_position = position
+	# Your existing initialization code
 	Global.set_player_reference(self)
+	original_position = position
 	health = health_resource.max_health
 	healthbar.init_health(health)
 	hitbox = $Hitbox
 	_update()
 	$Weapon.visible = false
-
 func _update():
 	if current_item != null:
 		set_damage(current_item.damage)
@@ -62,6 +63,11 @@ func is_hitbox_ready() -> bool:
 func _input(event):
 	if event.is_action_pressed("shoot"):
 		play_animation()
+	if event.is_action_pressed("apply_buff_test"):
+		var test_buff = HealthResource.new()
+		test_buff.buff_type = "bullet_count"  # Change to the type of buff you want to test
+		test_buff.buff_value = 10  # Set a value that is meaningful for the buff
+		apply_buff(test_buff)
 
 func shoot():
 	if current_item != null and bullet_scene and current_item.name == "Shotgun" :
@@ -85,18 +91,22 @@ func shoot():
 			can_shoot = true
 	else:
 		print(current_item,bullet_scene,Global.isDay )
-func apply_buff(buff_resource: BuffResource) -> void:
-	if buff_resource:
-		if buff_resource.buff_type == "heal":
-			heal(buff_resource.heal_amount)
-		elif buff_resource.buff_type == "speed":
-			speed += buff_resource.buff_value
-		elif buff_resource.buff_type == "damage":
-			set_damage(hitbox.damage + buff_resource.buff_value)
-		elif buff_resource.buff_type == "bullet_count":
-			current_item.bullet_count += int(buff_resource.buff_value)
+		
+func apply_buff(buff_resource: Resource) -> void:
+	if buff_resource.buff_type == "heal":
+		print("apply heal")
+		heal(buff_resource.heal_amount)
+	elif buff_resource.buff_type == "speed":
+		print("apply speed")
+		speed += buff_resource.buff_value
+	elif buff_resource.buff_type == "damage":
+		print("apply dame")
+		set_damage(hitbox.damage + buff_resource.buff_value)
+	elif buff_resource.buff_type == "bullet_count":
+		current_item.bullet_count += int(buff_resource.buff_value)
+		print("apply count")
 	else:
-		print("player")
+		print("apply buff is wrong")
 
 func combo(animation):
 	if animation in ["fist"]:

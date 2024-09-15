@@ -1,5 +1,5 @@
 extends Resource
-class_name BuffResource
+class_name HealthResource
 @export var max_health: int = 100
 @export var current_health: int = 100
 @export var heal_amount: int = 0

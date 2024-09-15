@@ -1,11 +1,11 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ck1queqgidxbd"]
+[gd_resource type="Resource" script_class="HealthResource" load_steps=2 format=3 uid="uid://ck1queqgidxbd"]
 
 [ext_resource type="Script" path="res://Scenes/HealthResource.gd" id="1_0bd2i"]
 
 [resource]
 script = ExtResource("1_0bd2i")
-max_health = 20
-current_health = 10
+max_health = 150
+current_health = 150
 heal_amount = 0
 buff_type = ""
 buff_value = 1.0

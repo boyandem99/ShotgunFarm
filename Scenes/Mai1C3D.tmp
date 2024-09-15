@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://banx46abhw15f"]
+[gd_scene load_steps=29 format=3 uid="uid://banx46abhw15f"]
 
 [ext_resource type="Script" path="res://Scenes/Main.gd" id="1_3pncr"]
 [ext_resource type="PackedScene" uid="uid://cn3ynkvti5rft" path="res://Scenes/Player.tscn" id="1_ft31m"]
@@ -236,9 +236,6 @@ sources/4 = SubResource("TileSetAtlasSource_qdtu5")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jwnjj"]
 size = Vector2(16, 31)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xdp5"]
-size = Vector2(16, 31)
-
 [node name="Main" type="Node2D"]
 script = ExtResource("1_3pncr")
 enemy_scene = ExtResource("2_n7jlh")
@@ -384,12 +381,6 @@ texture = ExtResource("9_l22w3")
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_jwnjj")
 
-[node name="Area2D" type="Area2D" parent="Bed"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bed/Area2D"]
-position = Vector2(0, 1.5)
-shape = SubResource("RectangleShape2D_4xdp5")
-
 [node name="growingZone" parent="." instance=ExtResource("16_f32uw")]
 position = Vector2(52, -97)
 wheat_buff = null
@@ -440,5 +431,3 @@ stream = ExtResource("20_mnc88")
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
-[connection signal="mouse_entered" from="Bed" to="Bed" method="_on_mouse_entered"]
-[connection signal="input_event" from="Bed/Area2D" to="Bed" method="_on_area_2d_input_event"]
