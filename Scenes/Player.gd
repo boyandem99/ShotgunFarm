@@ -27,7 +27,14 @@ var recoil_timer = 0.0
 var can_shoot = true
 var shoot_cooldown = 0.5
 var time_since_last_shot = 0.0
-@onready var bullet_scene : PackedScene = preload("res://Scenes/Bullet.tscn") 
+
+@onready var bullet_scene : PackedScene= preload("res://Scenes/Bullet.tscn") 
+
+@export var bullet_count: int = 1
+
+@export_range(0,360) var arc: float = 0
+
+@export_range(0,20) var fire_rate: float = 0
 @onready var shooting_sfx: AudioStreamPlayer2D = $shooting_sfx
 @onready var original_collision_layer = collision_layer
 @onready var original_collision_mask = collision_mask

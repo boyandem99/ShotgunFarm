@@ -4,6 +4,7 @@ extends Node2D
 @export var boss_scene: PackedScene
 var enemy_limit: int = 10
 var enemy_number: int = 10
+var boss_instance: Node = null  # Variable to track the boss instance
 
 @onready var day_soundtrack: AudioStreamPlayer2D = $DaySoundtrack
 @onready var night_soundtrack: AudioStreamPlayer = $NightSoundtrack
@@ -15,11 +16,9 @@ func _ready():
 	new_game()
 
 func new_game():
-	# Stop both soundtracks initially
 	day_soundtrack.stop()
 	night_soundtrack.stop()
 
-	# Check if it's day or night and play the corresponding soundtrack
 	if Global.isDay:
 		day_soundtrack.play()
 	else:
@@ -34,8 +33,10 @@ func game_over():
 
 func _on_start_timer_timeout():
 	$SpawnTimer.start()
-	var boss = boss_scene.instantiate()
-	add_child(boss)
+	# Check if boss_instance is null before instantiating a new boss
+	if boss_instance == null:
+		boss_instance = boss_scene.instantiate()
+		add_child(boss_instance)
 
 func _on_spawn_timer_timeout():
 	if enemy_number <= enemy_limit:

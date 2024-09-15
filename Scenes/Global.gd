@@ -3,7 +3,7 @@ var player_node: Player
 var plants_data = {}  
 var plantSelected: int = -1
 var player_reference = null
-var isDay: bool = true 
+var isDay: bool = true
 func _ready():
 	player_node = get_tree().root.get_node("Main/Player")	
 	if player_node:
@@ -43,7 +43,7 @@ func load_plants_state() -> void:
 		print("Failed to parse JSON")
 		return
 	
-	var plant_data = json.result  # Retrieve the parsed data from the result
+	var plant_data = json.result 
 
 	for plant_node in get_tree().get_nodes_in_group("plants"):
 		var key = str(plant_node.global_position)

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/Slot.gd" id="1_of028"]
 
 [node name="Slot" type="PanelContainer"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(100, 100)
 mouse_filter = 1
 script = ExtResource("1_of028")
 

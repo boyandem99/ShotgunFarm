@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://yd8hl0dffdus"]
+[gd_scene load_steps=6 format=3 uid="uid://drqibukh0xkxa"]
 
 [ext_resource type="Script" path="res://Scenes/tomato_seed_pack.gd" id="1_j7bmr"]
 [ext_resource type="Texture2D" uid="uid://sua8oqc5pg2o" path="res://Assets/crops_spritesheet.png" id="1_txv6c"]

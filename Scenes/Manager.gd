@@ -30,11 +30,11 @@ func remove_item(item : Item):
 func _input(event):
 	if event.is_action_pressed("ui_inventory"):  # Assuming 'E' is mapped to 'ui_inventory'
 		toggle_inventory()
+
 # Toggle the inventory state
 func toggle_inventory():
 	inventory_open = !inventory_open
 	set_inventory_visibility(inventory_open)
-	print("opening inventory")
 
 # Show or hide the inventory (Panel)
 func set_inventory_visibility(visible):
@@ -45,7 +45,6 @@ func equip_item(item : Item):
 	equipped_item = item
 	print("Equipped item:", equipped_item.name)
 
-# Call this when you want to equip an item from the inventory
 func equip_selected_item(slot_index):
 	var item = slots[slot_index].item
 	if item != null:
