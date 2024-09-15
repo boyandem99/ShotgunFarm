@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuffResource" load_steps=2 format=3 uid="uid://178swojlaaan"]
+[gd_resource type="Resource" script_class="HealthResource" load_steps=2 format=3 uid="uid://178swojlaaan"]
 
 [ext_resource type="Script" path="res://Scenes/HealthResource.gd" id="1_tqyox"]
 
