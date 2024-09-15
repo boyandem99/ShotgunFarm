@@ -1,12 +1,8 @@
-[gd_scene load_steps=46 format=3 uid="uid://yj55d8oy2h0t"]
+[gd_scene load_steps=42 format=3 uid="uid://yj55d8oy2h0t"]
 
 [ext_resource type="Texture2D" uid="uid://dp814hsg5y4t3" path="res://Assets/tilemap.png" id="1_ttl23"]
-[ext_resource type="Resource" uid="uid://c37knopjldp15" path="res://Scenes/SpeedWheat.tres" id="2_dhmwk"]
 [ext_resource type="Script" path="res://Scenes/plant_growth_timer.gd" id="3_l3g2f"]
-[ext_resource type="Resource" uid="uid://qdxnx3xpnhfu" path="res://Scenes/DamageCarrot.tres" id="3_pgdg4"]
 [ext_resource type="Texture2D" uid="uid://2v03fywqmtiy" path="res://Assets/crops.png" id="4_67pj2"]
-[ext_resource type="Resource" uid="uid://cigovfm1wcrdn" path="res://Scenes/HealthTomato.tres" id="4_fykub"]
-[ext_resource type="Resource" uid="uid://d34csb8d1oamd" path="res://Scenes/BulletPotato.tres" id="5_0lrrk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y7leg"]
 atlas = ExtResource("1_ttl23")
@@ -318,10 +314,6 @@ animations = [{
 
 [node name="growingZone" type="StaticBody2D"]
 script = ExtResource("3_l3g2f")
-wheat_buff = ExtResource("2_dhmwk")
-carrot_buff = ExtResource("3_pgdg4")
-tomato_buff = ExtResource("4_fykub")
-potato_buff = ExtResource("5_0lrrk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ixk5h")
@@ -329,7 +321,6 @@ autoplay = "default"
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 17
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_s8vaw")
@@ -339,15 +330,19 @@ sprite_frames = SubResource("SpriteFrames_ykcf8")
 animation = &"none"
 
 [node name="wheatTimer" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true
 
 [node name="carrotTimer" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true
 
 [node name="tomatoTimer" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true
 
 [node name="potatoTimer" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

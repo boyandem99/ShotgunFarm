@@ -14,8 +14,10 @@ shader_parameter/enabled = false
 shader_parameter/ColorParameter = Color(1, 1, 1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fl5pb"]
+radius = 9.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ftth"]
+radius = 9.0
 
 [sub_resource type="Animation" id="Animation_2fy11"]
 length = 0.001
@@ -55,6 +57,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tnqdw"]
+radius = 7.0
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4

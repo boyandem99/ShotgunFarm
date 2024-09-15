@@ -85,19 +85,18 @@ func shoot():
 			can_shoot = true
 	else:
 		print(current_item,bullet_scene,Global.isDay )
-func apply_buff(buff_resource: Resource) -> void:
-	if buff_resource.buff_type == "heal":
-		heal(buff_resource.heal_amount)
-	elif buff_resource.buff_type == "speed":
-		speed += buff_resource.buff_value
-	elif buff_resource.buff_type == "damage":
-		set_damage(hitbox.damage + buff_resource.buff_value)
-	elif buff_resource.buff_type == "bullet_count":
-		current_item.bullet_count += int(buff_resource.buff_value)
-	elif buff_resource.buff_type == "invincibility":
-		invincible = true
-		await get_tree().create_timer(buff_resource.duration).timeout
-		invincible = false
+func apply_buff(buff_resource: BuffResource) -> void:
+	if buff_resource:
+		if buff_resource.buff_type == "heal":
+			heal(buff_resource.heal_amount)
+		elif buff_resource.buff_type == "speed":
+			speed += buff_resource.buff_value
+		elif buff_resource.buff_type == "damage":
+			set_damage(hitbox.damage + buff_resource.buff_value)
+		elif buff_resource.buff_type == "bullet_count":
+			current_item.bullet_count += int(buff_resource.buff_value)
+	else:
+		print("player")
 
 func combo(animation):
 	if animation in ["fist"]:

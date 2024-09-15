@@ -6,7 +6,7 @@
 script = ExtResource("1_m8il3")
 max_health = 0
 current_health = 0
-heal_amount = 0
+heal_amount = 20
 buff_type = "bullet_count"
 buff_value = 1.0
 duration = 10.0

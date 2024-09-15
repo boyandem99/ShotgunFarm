@@ -3,11 +3,11 @@ class_name VampireBoss
 
 @export var speed = 100
 @export var damage = 0 
-@export var min_distance = 150 # The distance boss tries to maintain from the player
-@export var buffer_distance = 10 # Buffer area to avoid jittering
-@export var max_shoot_interval = 3.0 # Maximum time between shots
-@export var bullet_number = 3 # Number of bullets boss shoots at once
-@export var bullet_speed_min =50#Minimum bullet speed  
+@export var min_distance = 150
+@export var buffer_distance = 10 
+@export var max_shoot_interval = 3.0 
+@export var bullet_number = 3 
+@export var bullet_speed_min =50
 @export var bullet_speed_max = 200
 @onready var boss_bullet_scene : PackedScene= preload("res://Scenes/BossBullet.tscn")
 @onready var healthbar = $HealthBar
@@ -50,18 +50,13 @@ func _physics_process(delta):
 		var direction = global_position.direction_to(player.global_position)
 		var distance_to_player = global_position.distance_to(player.global_position)
 		if distance_to_player > min_distance + buffer_distance:
-			# Player is far, move towards them
 			velocity = direction * speed
 		elif distance_to_player < min_distance - buffer_distance:
-			# Player is too close, move away
 			velocity = -direction * speed
 		else:
-			# Player is within stop zone, stop moving
 			velocity = Vector2.ZERO
 
 		move_and_slide()
-
-		# Prevent boss rotation
 		rotation = 0
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
@@ -72,9 +67,8 @@ func _on_hurtbox_body_entered(body):
 		take_damage(body.damage)
 		body.queue_free()
 
-# Boss Shooting Logic
 func _on_shooting_timer_timeout():
-		# Calculate base direction towards the player
+
 		var base_direction = global_position.direction_to(player.global_position)
 
 		# Shoot `bullet_number` bullets with a spread
