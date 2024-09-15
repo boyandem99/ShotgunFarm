@@ -2,6 +2,11 @@ extends CharacterBody2D
 
 class_name Player
 
+
+var is_inventory_open: bool = false
+
+var backpack_opening: bool = true
+
 var speed = 150
 var dash_speed = 350
 var dash_time = 0.2
@@ -21,7 +26,9 @@ var original_position = Vector2.ZERO
 var recoil_timer = 0.0
 var can_shoot = true
 var shoot_cooldown = 0.5
+var shoot_cooldown = 0.5
 var time_since_last_shot = 0.0
+@onready var bullet_scene : PackedScene = preload("res://Scenes/Bullet.tscn") 
 @onready var bullet_scene : PackedScene = preload("res://Scenes/Bullet.tscn") 
 @onready var shooting_sfx: AudioStreamPlayer2D = $shooting_sfx
 @onready var original_collision_layer = collision_layer
@@ -53,6 +60,7 @@ func _ready():
 	hitbox = $Hitbox
 	_update()
 	$Weapon.visible = false
+
 func _update():
 	if current_item != null:
 		set_damage(current_item.damage)
@@ -91,22 +99,33 @@ func shoot():
 			can_shoot = true
 	else:
 		print(current_item,bullet_scene,Global.isDay )
-		
+
+func inventory_anim():
+	if is_inventory_open:
+		closing_inventory()
+	if is_inventory_open == false:
+		opening_inventory()
+
+func opening_inventory():
+	is_inventory_open = true
+	$AnimatedSprite2D.play("backpack_open")
+	backpack_opening = true
+func closing_inventory():
+	$AnimatedSprite2D.play("backpack_end")
+
 func apply_buff(buff_resource: Resource) -> void:
 	if buff_resource.buff_type == "heal":
-		print("apply heal")
 		heal(buff_resource.heal_amount)
 	elif buff_resource.buff_type == "speed":
-		print("apply speed")
 		speed += buff_resource.buff_value
 	elif buff_resource.buff_type == "damage":
-		print("apply dame")
 		set_damage(hitbox.damage + buff_resource.buff_value)
 	elif buff_resource.buff_type == "bullet_count":
 		current_item.bullet_count += int(buff_resource.buff_value)
-		print("apply count")
-	else:
-		print("apply buff is wrong")
+	elif buff_resource.buff_type == "invincibility":
+		invincible = true
+		await get_tree().create_timer(buff_resource.duration).timeout
+		invincible = false
 
 func combo(animation):
 	if animation in ["fist"]:
@@ -127,6 +146,8 @@ func _on_weapon_fx_animation_finished(anim_name):
 		is_attacking = false
 
 func _process(delta):
+	if Input.is_action_just_pressed("ui_inventory"):
+		inventory_anim()
 	time_since_last_shot += delta
 	if Input.is_action_pressed("shoot") and time_since_last_shot >= shoot_cooldown:
 		shoot()
@@ -153,8 +174,10 @@ func _process(delta):
 		$Weapon.flip_v = false
 
 func _physics_process(delta):
-	handle_movement(delta)
-	handle_dash(delta)
+	if is_inventory_open == false:
+		handle_movement(delta)
+		handle_dash(delta)
+		handle_continuous_damage(delta)  # Added function to handle continuous damage
 	handle_continuous_damage(delta)  # Added function to handle continuous damage
 
 func handle_movement(delta):
@@ -256,3 +279,11 @@ func handle_continuous_damage(delta):
 			if enemy:
 				take_damage(damage_per_second * damage_interval)
 		time_since_last_damage = 0.0
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if backpack_opening:
+		$AnimatedSprite2D.play("backpack_idle")
+		backpack_opening = false
+	elif is_inventory_open and backpack_opening == false:
+		is_inventory_open = false

@@ -27,6 +27,7 @@ func _on_wheat_timer_timeout() -> void:
 		$Plant.frame = 3
 		is_plant_done = true
 	
+	
 func _on_carrot_timer_timeout() -> void:
 	if $Plant.frame == 0:
 		$Plant.frame = 1

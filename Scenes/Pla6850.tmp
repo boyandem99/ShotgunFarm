@@ -699,6 +699,8 @@ shape = SubResource("RectangleShape2D_1agaj")
 z_index = -1
 sprite_frames = SubResource("SpriteFrames_pfh2y")
 animation = &"backpack_open"
+frame = 2
+frame_progress = 1.0
 
 [node name="WeaponFX" type="AnimationPlayer" parent="."]
 libraries = {
@@ -770,7 +772,6 @@ disabled = true
 [node name="shooting_sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_qyp53")
 
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="WeaponFX" to="." method="_on_weapon_fx_animation_finished"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_exited" from="Hurtbox" to="." method="_on_hurtbox_body_exited"]
