@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://51nbyfika74c"]
+[gd_scene load_steps=23 format=3 uid="uid://51nbyfika74c"]
 
 [ext_resource type="Script" path="res://Scenes/Boss.gd" id="1_dnlq3"]
 [ext_resource type="Texture2D" uid="uid://q5lmkn0t0iqq" path="res://Assets/boss.png" id="2_yc4mm"]
 [ext_resource type="Script" path="res://Scenes/Hitbox.gd" id="3_mp7wx"]
 [ext_resource type="PackedScene" uid="uid://kjw5f4d5b3ey" path="res://Scenes/HealthBar.tscn" id="4_g7cw7"]
+[ext_resource type="Resource" uid="uid://178swojlaaan" path="res://Scenes/BossHealthResource.tres" id="5_eo436"]
+[ext_resource type="Texture2D" uid="uid://oevfr0bfo5ta" path="res://Assets/Tranform.png" id="6_fw82c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_peo8v"]
 size = Vector2(25, 31)
@@ -51,6 +53,80 @@ _data = {
 "hit_flash": SubResource("Animation_nchqo")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v618s"]
+atlas = ExtResource("6_fw82c")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_254qi"]
+atlas = ExtResource("6_fw82c")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ch1kd"]
+atlas = ExtResource("6_fw82c")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sv3w"]
+atlas = ExtResource("6_fw82c")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rs68s"]
+atlas = ExtResource("6_fw82c")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_un88b"]
+atlas = ExtResource("6_fw82c")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqxbi"]
+atlas = ExtResource("6_fw82c")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryudl"]
+atlas = ExtResource("6_fw82c")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ut4c"]
+atlas = ExtResource("6_fw82c")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yjcj5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v618s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_254qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ch1kd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sv3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rs68s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_un88b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqxbi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryudl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ut4c")
+}],
+"loop": false,
+"name": &"transform",
+"speed": 16.0
+}]
+
 [node name="Boss" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 7
@@ -62,7 +138,6 @@ max_shoot_interval = 1.0
 texture = ExtResource("2_yc4mm")
 
 [node name="Hurtbox" type="Area2D" parent="Sprite2D"]
-visible = false
 collision_layer = 4
 collision_mask = 7
 
@@ -71,7 +146,6 @@ position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_peo8v")
 
 [node name="Hitbox" type="Area2D" parent="Sprite2D"]
-visible = false
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("3_mp7wx")
@@ -81,7 +155,6 @@ position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_m6hjx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_qar46")
 
@@ -90,6 +163,9 @@ offset_left = -12.0
 offset_top = -21.0
 offset_right = 15.0
 offset_bottom = -18.0
+max_value = 1000.0
+value = 1.0
+health_resource = ExtResource("5_eo436")
 
 [node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -98,4 +174,10 @@ libraries = {
 
 [node name="ShootingTimer" type="Timer" parent="."]
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, -9)
+sprite_frames = SubResource("SpriteFrames_yjcj5")
+animation = &"transform"
+
 [connection signal="timeout" from="ShootingTimer" to="." method="_on_shooting_timer_timeout"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

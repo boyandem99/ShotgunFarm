@@ -2,7 +2,7 @@ extends Area2D
 
 class_name Hitbox
 
-var damage: float = 1
+var damage: float = 10
 
 signal hit_detected
 	#

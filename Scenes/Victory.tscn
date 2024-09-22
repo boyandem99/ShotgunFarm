@@ -134,6 +134,7 @@ text = "Quit game"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_ygxk1")
+volume_db = -7.0
 autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/Restart" to="." method="_on_restart_pressed"]

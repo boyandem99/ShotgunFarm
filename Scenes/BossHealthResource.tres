@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_tqyox")
-max_health = 500
-current_health = 500
+max_health = 1000
+current_health = 1000
 heal_amount = 0
 buff_type = ""
 buff_value = 1.0

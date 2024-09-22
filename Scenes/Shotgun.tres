@@ -12,6 +12,6 @@ icon = ExtResource("1_kvyja")
 damage = 0.0
 animation = "shotgun"
 projectile = 5
-fire_rate = 4.0
+fire_rate = 2.0
 bullet_count = 3
 arc = 80.0

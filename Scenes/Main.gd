@@ -2,12 +2,11 @@ extends Node2D
 
 @export var enemy_scene: PackedScene
 @export var boss_scene: PackedScene
-var enemy_limit: int = 10
-var enemy_number: int = 10
-var boss_instance: Node = null  # Variable to track the boss instance
+var boss_instance: Node = null 
 
 @onready var day_soundtrack: AudioStreamPlayer2D = $DaySoundtrack
 @onready var night_soundtrack: AudioStreamPlayer = $NightSoundtrack
+@onready var spawn_timer: Timer = $SpawnTimer # Accessing SpawnTimer node
 
 func _process(delta):
 	pass
@@ -39,14 +38,18 @@ func _on_start_timer_timeout():
 		add_child(boss_instance)
 
 func _on_spawn_timer_timeout():
-	if enemy_number <= enemy_limit:
-		var enemy = enemy_scene.instantiate()
-		enemy_number += 1
-		var enemy_spawn_location = $EnemyPath/EnemySpawnLocation
-		enemy_spawn_location.progress_ratio = randf()
-		var direction = enemy_spawn_location.rotation + PI / 2
-		enemy.position = enemy_spawn_location.position
-		direction += randf_range(-PI / 4, PI / 4)
-		enemy.rotation = direction
-		var velocity = Vector2(randf_range(150.0, 250.0), 0.0).rotated(rotation)
-		add_child(enemy)
+	var enemy = enemy_scene.instantiate()
+	var enemy_spawn_location = $EnemyPath/EnemySpawnLocation
+	enemy_spawn_location.progress_ratio = randf()
+	var direction = enemy_spawn_location.rotation + PI / 2
+	enemy.position = enemy_spawn_location.position
+	direction += randf_range(-PI / 4, PI / 4)
+	enemy.rotation = direction
+	var velocity = Vector2(randf_range(150.0, 250.0), 0.0).rotated(direction)
+	enemy.velocity = velocity
+	add_child(enemy)
+
+
+func set_spawn_rate(rate_multiplier: float):
+	spawn_timer.wait_time /= rate_multiplier 
+	spawn_timer.start() 

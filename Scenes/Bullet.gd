@@ -3,11 +3,10 @@ extends Area2D
 class_name Bullet
 
 @export var speed = 450
-@export var damage = 10  
+@export var damage = 15
 var direction = Vector2.RIGHT
 
 func _ready():
-	# Set direction initially if needed, but it will be overridden by shoot()
 	pass
 
 func _process(delta):

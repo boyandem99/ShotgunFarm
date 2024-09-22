@@ -2,11 +2,8 @@ extends CharacterBody2D
 
 class_name Player
 
-
 var is_inventory_open: bool = false
-
 var backpack_opening: bool = true
-
 var speed = 150
 var dash_speed = 350
 var dash_time = 0.2
@@ -29,11 +26,8 @@ var shoot_cooldown = 0.5
 var time_since_last_shot = 0.0
 
 @onready var bullet_scene : PackedScene= preload("res://Scenes/Bullet.tscn") 
-
 @export var bullet_count: int = 1
-
 @export_range(0,360) var arc: float = 0
-
 @export_range(0,20) var fire_rate: float = 0
 @onready var shooting_sfx: AudioStreamPlayer2D = $shooting_sfx
 @onready var original_collision_layer = collision_layer
@@ -49,7 +43,7 @@ var time_since_last_shot = 0.0
 			if current_item.name == "Pitchfork":
 				set_damage(current_item.damage)
 			else:
-				set_damage(1)
+				set_damage(10)
 
 func set_damage(amount):
 	if is_hitbox_ready():
@@ -57,7 +51,6 @@ func set_damage(amount):
 
 	
 func _ready():
-	# Your existing initialization code
 	Global.set_player_reference(self)
 	original_position = position
 	health = health_resource.max_health
@@ -78,8 +71,8 @@ func _input(event):
 		play_animation()
 	if event.is_action_pressed("apply_buff_test"):
 		var test_buff = HealthResource.new()
-		test_buff.buff_type = "bullet_count"  # Change to the type of buff you want to test
-		test_buff.buff_value = 10  # Set a value that is meaningful for the buff
+		test_buff.buff_type = "bullet_count" 
+		test_buff.buff_value = 10  
 		apply_buff(test_buff)
 
 func shoot():
@@ -87,11 +80,11 @@ func shoot():
 		if can_shoot:
 			shooting_sfx.play()
 			can_shoot = false
+			play_animation()
 			var bullet_arc_rad = deg_to_rad(current_item.arc)
 			var bullet_count_half = (current_item.bullet_count - 1) / 2.0
 			var mouse_pos = get_global_mouse_position()
 			var base_direction = (mouse_pos - global_position).normalized()
-			
 			for i in range(current_item.bullet_count ):
 				var bullet = bullet_scene.instantiate()
 				bullet.position = global_position
@@ -102,6 +95,7 @@ func shoot():
 				get_tree().root.call_deferred("add_child", bullet)
 			await get_tree().create_timer(1 / current_item.fire_rate).timeout
 			can_shoot = true
+			
 	else:
 		print(current_item,bullet_scene,Global.isDay )
 
@@ -226,8 +220,8 @@ func start_dash():
 	dash_timer = dash_time
 	can_dash = false
 	invincible = true
-	collision_layer = 5
-	collision_mask = 5
+	collision_layer = 0
+	collision_mask = 0
 	dash_direction = velocity.normalized() if velocity.length() > 0 else Vector2(1, 0)
 	var mouse_pos = get_global_mouse_position()
 	if (mouse_pos.x - global_position.x) * dash_direction.x > 0:

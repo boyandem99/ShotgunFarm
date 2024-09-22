@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://sksqshcbagio"]
+
+[ext_resource type="Script" path="res://Scenes/Turtorial.gd" id="1_45dtw"]
+[ext_resource type="Texture2D" uid="uid://cb3il2utmyxj2" path="res://Assets/SeedBags.png" id="1_rxbv6"]
+[ext_resource type="Texture2D" uid="uid://c2ent4mnv786l" path="res://Assets/PlantingTile.png" id="2_w24dx"]
+[ext_resource type="Texture2D" uid="uid://bgb8voxmubjp3" path="res://Assets/BedInMap.png" id="4_u80k5"]
+
+[node name="Turtorial" type="CanvasLayer"]
+scale = Vector2(1.2, 1.2)
+transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
+script = ExtResource("1_45dtw")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 65.0
+offset_top = 8.57143
+offset_right = 864.0
+offset_bottom = 525.571
+text = "WASD to move.     Spacebar to Dash.
+Press E to open inventory. Click and drag weapon to the far right slot to equip       
+Left mouse to shoot
+
+These are seed bags.                                       Plant them into these slot.                         Right click the bed to go to sleep
+
+
+
+
+
+
+
+
+Once they mature, collect them to gain buffs.
+To plant the seed bags, left click the seeds bag you want. 
+Drag your mouse to your desire slots.
+Left click again to drop them.
+
+You can try the planting and the movement out before you go to sleep."
+
+[node name="SeedBags" type="TextureRect" parent="."]
+offset_left = 74.0
+offset_top = 150.571
+offset_right = 245.0
+offset_bottom = 315.571
+texture = ExtResource("1_rxbv6")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 404.167
+offset_top = 169.167
+offset_right = 563.167
+offset_bottom = 313.167
+texture = ExtResource("2_w24dx")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = 65.0
+offset_top = 8.57143
+offset_right = 782.0
+offset_bottom = 478.571
+
+[node name="Button" type="Button" parent="."]
+offset_left = 729.0
+offset_top = 418.0
+offset_right = 892.0
+offset_bottom = 503.0
+text = "Let's Play"
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_left = 762.5
+offset_top = 168.333
+offset_right = 879.5
+offset_bottom = 314.333
+texture = ExtResource("4_u80k5")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
